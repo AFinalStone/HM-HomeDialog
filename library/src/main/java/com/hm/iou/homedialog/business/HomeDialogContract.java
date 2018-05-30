@@ -7,7 +7,7 @@ import com.hm.iou.base.mvp.BaseContract;
  * @Date : 2018/5/29 10:29
  * @E-Mail : shiyaolei@dafy.com
  */
-public class AdvertisementContract {
+public class HomeDialogContract {
 
     /**
      * 通过邮箱找回密码

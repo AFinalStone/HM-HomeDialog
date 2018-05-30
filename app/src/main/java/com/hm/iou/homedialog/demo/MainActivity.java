@@ -1,15 +1,11 @@
 package com.hm.iou.homedialog.demo;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
-import com.hm.iou.homedialog.business.view.AdvertisementActivity;
+import com.hm.iou.homedialog.business.view.HomeDialogActivity;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.network.HttpReqManager;
 import com.hm.iou.network.HttpRequestConfig;
@@ -32,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 SystemUtil.openWebBrowser(this, "http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
                 break;
             case R.id.btn_showAdvertisement:
-                startActivity(new Intent(this, AdvertisementActivity.class));
+                startActivity(new Intent(this, HomeDialogActivity.class));
                 overridePendingTransition(R.anim.uikit_activity_open_from_top, 0);
                 break;
             default:

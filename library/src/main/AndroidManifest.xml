@@ -5,7 +5,7 @@
 
     <application>
         <activity
-            android:name="com.hm.iou.homedialog.business.view.AdvertisementActivity"
+            android:name="com.hm.iou.homedialog.business.view.HomeDialogActivity"
             android:theme="@style/UikitTranslucentThemeActivity" />
     </application>
 

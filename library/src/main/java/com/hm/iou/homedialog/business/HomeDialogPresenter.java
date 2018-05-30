@@ -10,15 +10,12 @@ import android.text.TextUtils;
 
 import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.utils.RxUtil;
-import com.hm.iou.homedialog.R;
 import com.hm.iou.homedialog.api.HomeDialogApi;
 import com.hm.iou.homedialog.bean.TypeDialogBean;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.homedialog.bean.UpdateAppBean;
-import com.hm.iou.logger.Logger;
 import com.hm.iou.sharedata.model.BaseResponse;
-import com.hm.iou.tools.FileUtil;
 import com.hm.iou.tools.Md5Util;
 import com.hm.iou.tools.SystemUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -30,23 +27,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
 /**
  * @author syl
  * @time 2018/5/19 下午4:54
  */
-public class AdvertisementPresenter extends MvpActivityPresenter<AdvertisementContract.View> implements AdvertisementContract.Present {
+public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract.View> implements HomeDialogContract.Present {
 
     private static final String fileProvider = "com.hm.iou";
 
     private UpdateAppBean mUpdateAppBean = new UpdateAppBean();
 
-    public AdvertisementPresenter(@NonNull Context context, @NonNull AdvertisementContract.View view) {
+    public HomeDialogPresenter(@NonNull Context context, @NonNull HomeDialogContract.View view) {
         super(context, view);
     }
 
@@ -157,10 +150,10 @@ public class AdvertisementPresenter extends MvpActivityPresenter<AdvertisementCo
                     public void handleResult(List<TypeDialogBean> list) {
 
                         for (TypeDialogBean info : list) {
-                            if (info.getType() == 1) {
-                                mView.showOfficialMsgDialog(info.getTitile(), info.getContent(), info.getSubContent());
-                                break;
-                            }
+//                            if (info.getType() == 1) {
+//                                mView.showOfficialMsgDialog(info.getTitile(), info.getContent(), info.getSubContent());
+//                                break;
+//                            }
                             if (info.getType() == 2) {
                                 mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
                                 mView.showMustUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());

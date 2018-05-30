@@ -9,14 +9,14 @@ import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.BaseActivity;
 import com.hm.iou.base.utils.PermissionUtil;
 import com.hm.iou.homedialog.R;
-import com.hm.iou.homedialog.business.AdvertisementContract;
-import com.hm.iou.homedialog.business.AdvertisementPresenter;
+import com.hm.iou.homedialog.business.HomeDialogContract;
+import com.hm.iou.homedialog.business.HomeDialogPresenter;
 import com.hm.iou.router.Router;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import io.reactivex.functions.Consumer;
 
-public class AdvertisementActivity extends BaseActivity<AdvertisementPresenter> implements AdvertisementContract.View {
+public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implements HomeDialogContract.View {
 
     private ProgressDialog mProgressDialog;
 
@@ -26,8 +26,8 @@ public class AdvertisementActivity extends BaseActivity<AdvertisementPresenter> 
     }
 
     @Override
-    protected AdvertisementPresenter initPresenter() {
-        return new AdvertisementPresenter(this, this);
+    protected HomeDialogPresenter initPresenter() {
+        return new HomeDialogPresenter(this, this);
     }
 
     @Override
@@ -38,8 +38,7 @@ public class AdvertisementActivity extends BaseActivity<AdvertisementPresenter> 
                 finish();
             }
         });
-//        mPresenter.getAllTypeDialog();
-        toUpdateApp();
+        mPresenter.getAllTypeDialog();
     }
 
 
@@ -51,28 +50,29 @@ public class AdvertisementActivity extends BaseActivity<AdvertisementPresenter> 
 
 
     private void toUpdateApp() {
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
-            @Override
-            public void accept(Boolean aBoolean) throws Exception {
-                if (aBoolean) {
-                    mPresenter.toUpdateApp();
-                } else {
-                    PermissionUtil.showStoragePermissionDialog(mContext, new PermissionUtil.OnPermissionDialogClick() {
-                        @Override
-                        public void onPositiveBtnClick() {
-
-                        }
-
-                        @Override
-                        public void onNegativeBtnClick() {
-                            toastMessage(R.string.homedialog_installation_permission_refuse);
-                            finish();
-                        }
-                    });
-                }
-            }
-        });
+        mPresenter.toUpdateApp();
+//        RxPermissions rxPermissions = new RxPermissions(this);
+//        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
+//            @Override
+//            public void accept(Boolean aBoolean) throws Exception {
+//                if (aBoolean) {
+//                    mPresenter.toUpdateApp();
+//                } else {
+//                    PermissionUtil.showStoragePermissionDialog(mContext, new PermissionUtil.OnPermissionDialogClick() {
+//                        @Override
+//                        public void onPositiveBtnClick() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onNegativeBtnClick() {
+//                            toastMessage(R.string.homedialog_installation_permission_refuse);
+//                            finish();
+//                        }
+//                    });
+//                }
+//            }
+//        });
     }
 
     @Override
