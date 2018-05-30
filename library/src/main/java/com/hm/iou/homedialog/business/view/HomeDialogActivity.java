@@ -1,20 +1,15 @@
 package com.hm.iou.homedialog.business.view;
 
-import android.Manifest;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 
 import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.BaseActivity;
-import com.hm.iou.base.utils.PermissionUtil;
 import com.hm.iou.homedialog.R;
 import com.hm.iou.homedialog.business.HomeDialogContract;
 import com.hm.iou.homedialog.business.HomeDialogPresenter;
 import com.hm.iou.router.Router;
-import com.tbruyelle.rxpermissions2.RxPermissions;
-
-import io.reactivex.functions.Consumer;
 
 public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implements HomeDialogContract.View {
 
@@ -40,14 +35,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         });
         mPresenter.getAllTypeDialog();
     }
-
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(0, R.anim.uikit_activity_to_top);
-    }
-
 
     private void toUpdateApp() {
         mPresenter.toUpdateApp();
@@ -123,6 +110,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
                     @Override
                     public void onClick() {
                         finish();
+                        overridePendingTransition(0, R.anim.uikit_activity_to_top);
                     }
                 })
                 .setPositiveButton(getString(R.string.homedialog_update), new DialogUpdate.OnClickListener() {

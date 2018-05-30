@@ -150,24 +150,24 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
                     public void handleResult(List<TypeDialogBean> list) {
 
                         for (TypeDialogBean info : list) {
-//                            if (info.getType() == 1) {
-//                                mView.showOfficialMsgDialog(info.getTitile(), info.getContent(), info.getSubContent());
+                            if (info.getType() == 1) {
+                                mView.showOfficialMsgDialog(info.getTitile(), info.getContent(), info.getSubContent());
+                                break;
+                            }
+//                            if (info.getType() == 2) {
+//                                mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
+//                                mView.showMustUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());
 //                                break;
 //                            }
-                            if (info.getType() == 2) {
-                                mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
-                                mView.showMustUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());
-                                break;
-                            }
-                            if (info.getType() == 3) {
-                                mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
-                                mView.showUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());
-                                break;
-                            }
-                            if (info.getType() == 4) {
-                                mView.showAdvertisementDialog("http://img.zcool.cn/community/01ea635721792432f875a399e7b958.jpg@900w_1l_2o_100sh.jpg", info.getAdUrl());
-                                break;
-                            }
+//                            if (info.getType() == 3) {
+//                                mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
+//                                mView.showUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());
+//                                break;
+//                            }
+//                            if (info.getType() == 4) {
+//                                mView.showAdvertisementDialog("http://img.zcool.cn/community/01ea635721792432f875a399e7b958.jpg@900w_1l_2o_100sh.jpg", info.getAdUrl());
+//                                break;
+//                            }
                         }
                     }
 

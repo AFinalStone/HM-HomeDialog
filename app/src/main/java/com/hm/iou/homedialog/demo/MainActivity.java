@@ -5,21 +5,30 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.hm.iou.base.BaseActivity;
+import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.homedialog.business.view.HomeDialogActivity;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.network.HttpReqManager;
 import com.hm.iou.network.HttpRequestConfig;
 import com.hm.iou.tools.SystemUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity<T extends MvpActivityPresenter> extends BaseActivity<T> {
 
-//    private List<AdInfo> mListAdData;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected T initPresenter() {
+        return null;
+    }
+
+    @Override
+    protected void initEventAndData(Bundle bundle) {
         initNet();
-        setContentView(R.layout.activity_main);
     }
 
     public void onClick(View view) {
