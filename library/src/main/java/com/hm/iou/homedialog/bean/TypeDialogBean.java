@@ -11,31 +11,27 @@ import lombok.Data;
 public class TypeDialogBean {
 
     /**
-     * autoId : 1
-     * isShow : 0
-     * type : 1
-     * titile : 官方私信
-     * content : 官方私信---内容
-     * subContent : jietiaoguanjia2018
-     * createTime : 1527143717000
-     * lastUpdateTime : 1527228506000
-     * version :
-     * adUrl :
-     * timeRange : 2018-05-24 14:35:17~2018-05-30 14:35:17
-     * userId : null
+     * adUrl : string
+     * autoId : 0
+     * content : string
+     * endTime : string
+     * isShow : string
+     * lastVersion : string
+     * startTime : string
+     * subContent : string
+     * titile : string
+     * type : 0
      */
 
-    private int autoId;
-    private int isShow;
-    private int type;
-    private String titile;
-    private String content;
-    private String subContent;
-    private long createTime;
-    private long lastUpdateTime;
-    private String version;
     private String adUrl;
-    private String timeRange;
-    private String userId;
+    private int autoId;
+    private String content;
+    private String endTime;
+    private String isShow;
+    private String lastVersion;
+    private String startTime;
+    private String subContent;
+    private String titile;
+    private int type;
 
 }

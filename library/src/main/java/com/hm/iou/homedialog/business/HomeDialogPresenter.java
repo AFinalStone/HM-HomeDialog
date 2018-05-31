@@ -9,11 +9,11 @@ import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import com.hm.iou.base.ActivityManager;
+import com.hm.iou.base.mvp.MvpActivityPresenter;
+import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.homedialog.api.HomeDialogApi;
 import com.hm.iou.homedialog.bean.TypeDialogBean;
-import com.hm.iou.base.mvp.MvpActivityPresenter;
-import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.homedialog.bean.UpdateAppBean;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.tools.Md5Util;
@@ -25,7 +25,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 
@@ -143,31 +142,29 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
     @Override
     public void getAllTypeDialog() {
         HomeDialogApi.getAllDialogType()
-                .compose(getProvider().<BaseResponse<List<TypeDialogBean>>>bindUntilEvent(ActivityEvent.DESTROY))
-                .map(RxUtil.<List<TypeDialogBean>>handleResponse())
-                .subscribeWith(new CommSubscriber<List<TypeDialogBean>>(mView) {
+                .compose(getProvider().<BaseResponse<TypeDialogBean>>bindUntilEvent(ActivityEvent.DESTROY))
+                .map(RxUtil.<TypeDialogBean>handleResponse())
+                .subscribeWith(new CommSubscriber<TypeDialogBean>(mView) {
                     @Override
-                    public void handleResult(List<TypeDialogBean> list) {
+                    public void handleResult(TypeDialogBean info) {
 
-                        for (TypeDialogBean info : list) {
-                            if (info.getType() == 1) {
-                                mView.showOfficialMsgDialog(info.getTitile(), info.getContent(), info.getSubContent());
-                                break;
-                            }
-//                            if (info.getType() == 2) {
-//                                mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
-//                                mView.showMustUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());
-//                                break;
-//                            }
-//                            if (info.getType() == 3) {
-//                                mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
-//                                mView.showUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());
-//                                break;
-//                            }
-//                            if (info.getType() == 4) {
-//                                mView.showAdvertisementDialog("http://img.zcool.cn/community/01ea635721792432f875a399e7b958.jpg@900w_1l_2o_100sh.jpg", info.getAdUrl());
-//                                break;
-//                            }
+                        if (info.getType() == 1) {
+                            mView.showOfficialMsgDialog(info.getTitile(), info.getContent(), info.getSubContent());
+                            return;
+                        }
+                        if (info.getType() == 2) {
+                            mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
+                            mView.showMustUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());
+                            return;
+                        }
+                        if (info.getType() == 3) {
+                            mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
+                            mView.showUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());
+                            return;
+                        }
+                        if (info.getType() == 4) {
+                            mView.showAdvertisementDialog("http://img.zcool.cn/community/01ea635721792432f875a399e7b958.jpg@900w_1l_2o_100sh.jpg", info.getAdUrl());
+                            return;
                         }
                     }
 

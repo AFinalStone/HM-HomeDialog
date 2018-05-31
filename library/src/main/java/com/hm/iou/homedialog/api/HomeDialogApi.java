@@ -27,8 +27,8 @@ public class HomeDialogApi {
      *
      * @return
      */
-    public static Flowable<BaseResponse<List<TypeDialogBean>>> getAllDialogType() {
-        return getService().getAllTypeDialog().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    public static Flowable<BaseResponse<TypeDialogBean>> getAllDialogType() {
+        return getService().getAllTypeDialog(new Object()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
