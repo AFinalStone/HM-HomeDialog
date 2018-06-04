@@ -154,6 +154,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
                         Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
                                 .withString("url", mDialogAdLinkUrl)
                                 .navigation(mContext);
+                        finish();
                     }
 
                     @Override

@@ -159,6 +159,7 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
     @Override
     public void toUpdateApp(String fileUrl, String fileMD5) {
         SystemUtil.openWebBrowser(mContext, fileUrl);
+        mView.closeCurrPage();
 //        mUpdateAppBean.setVersionCode(3);
 //        mUpdateAppBean.setFileMD5("234243");
 //        mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
