@@ -10,18 +10,11 @@ import android.text.TextUtils;
 
 import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
-import com.hm.iou.base.utils.CommSubscriber;
-import com.hm.iou.base.utils.RxUtil;
-import com.hm.iou.homedialog.api.HomeDialogApi;
-import com.hm.iou.homedialog.bean.TypeDialogBean;
-import com.hm.iou.homedialog.bean.UpdateAppBean;
-import com.hm.iou.sharedata.model.BaseResponse;
+import com.hm.iou.homedialog.dict.DialogType;
 import com.hm.iou.tools.Md5Util;
 import com.hm.iou.tools.SystemUtil;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,12 +27,11 @@ import okhttp3.ResponseBody;
  */
 public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract.View> implements HomeDialogContract.Present {
 
-    private static final String fileProvider = "com.hm.iou";
-
-    private UpdateAppBean mUpdateAppBean = new UpdateAppBean();
+    private String mFileProvider;
 
     public HomeDialogPresenter(@NonNull Context context, @NonNull HomeDialogContract.View view) {
         super(context, view);
+        mFileProvider = SystemUtil.getCurrentAppPackageName(mContext);
     }
 
     /**
@@ -72,7 +64,7 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
             // 由于没有在Activity环境下启动Activity,设置下面的标签
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //参数1 上下文, 参数2 Provider主机地址 和配置文件中保持一致   参数3  共享的文件
-            Uri contentUri = FileProvider.getUriForFile(mContext, fileProvider, file);
+            Uri contentUri = FileProvider.getUriForFile(mContext, mFileProvider, file);
             //添加这一句表示对目标应用临时授权该Uri所代表的文件
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
@@ -135,61 +127,38 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
     @Override
-    public void getAllTypeDialog() {
-        HomeDialogApi.getAllDialogType()
-                .compose(getProvider().<BaseResponse<TypeDialogBean>>bindUntilEvent(ActivityEvent.DESTROY))
-                .map(RxUtil.<TypeDialogBean>handleResponse())
-                .subscribeWith(new CommSubscriber<TypeDialogBean>(mView) {
-                    @Override
-                    public void handleResult(TypeDialogBean info) {
+    public void init(String dialogType) {
 
-                        if (info.getType() == 1) {
-                            mView.showOfficialMsgDialog(info.getTitile(), info.getContent(), info.getSubContent());
-                            return;
-                        }
-                        if (info.getType() == 2) {
-                            mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
-                            mView.showMustUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());
-                            return;
-                        }
-                        if (info.getType() == 3) {
-                            mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
-                            mView.showUpdateDialog(info.getTitile(), info.getContent(), info.getSubContent());
-                            return;
-                        }
-                        if (info.getType() == 4) {
-                            mView.showAdvertisementDialog("http://img.zcool.cn/community/01ea635721792432f875a399e7b958.jpg@900w_1l_2o_100sh.jpg", info.getAdUrl());
-                            return;
-                        }
-                    }
-
-                    @Override
-                    public void handleException(Throwable throwable, String code, String msg) {
-                        mView.closeCurrPage();
-                    }
-
-                    @Override
-                    public boolean isShowBusinessError() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean isShowCommError() {
-                        return false;
-                    }
-                });
+        if (DialogType.OfficeMsg.getValue().equals(dialogType)) {
+            mView.showOfficialMsgDialog();
+            return;
+        }
+        if (DialogType.MustUpdate.getValue().equals(dialogType)) {
+            mView.showMustUpdateDialog();
+            return;
+        }
+        if (DialogType.Update.getValue().equals(dialogType)) {
+            mView.showUpdateDialog();
+            return;
+        }
+        if (DialogType.AdvertisementMoney.getValue().equals(dialogType)) {
+            mView.showAdvertisementDialog();
+            return;
+        }
+        if (DialogType.AdvertisementOther.getValue().equals(dialogType)) {
+            mView.showAdvertisementDialog();
+            return;
+        }
+        mView.closeCurrPage();
     }
 
     @Override
-    public void toUpdateApp() {
-
-        SystemUtil.openWebBrowser(mContext, mUpdateAppBean.getDownloadUrl());
-
+    public void toUpdateApp(String fileUrl, String fileMD5) {
+        SystemUtil.openWebBrowser(mContext, fileUrl);
 //        mUpdateAppBean.setVersionCode(3);
 //        mUpdateAppBean.setFileMD5("234243");
 //        mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
@@ -253,37 +222,37 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
 
     }
 
-    /**
-     * 将输入流写入文件
-     *
-     * @param inputString
-     * @param filePath
-     */
-    private void writeFile(InputStream inputString, String filePath) {
-
-        File file = new File(filePath);
-        if (file.exists()) {
-            file.delete();
-        }
-
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);
-
-            byte[] b = new byte[1024];
-
-            int len;
-            while ((len = inputString.read(b)) != -1) {
-                fos.write(b, 0, len);
-            }
-            inputString.close();
-            fos.close();
-
-        } catch (FileNotFoundException e) {
-            mView.toastMessage("FileNotFoundException");
-        } catch (IOException e) {
-            mView.toastMessage("IOException");
-        }
-
-    }
+//    /**
+//     * 将输入流写入文件
+//     *
+//     * @param inputString
+//     * @param filePath
+//     */
+//    private void writeFile(InputStream inputString, String filePath) {
+//
+//        File file = new File(filePath);
+//        if (file.exists()) {
+//            file.delete();
+//        }
+//
+//        FileOutputStream fos = null;
+//        try {
+//            fos = new FileOutputStream(file);
+//
+//            byte[] b = new byte[1024];
+//
+//            int len;
+//            while ((len = inputString.read(b)) != -1) {
+//                fos.write(b, 0, len);
+//            }
+//            inputString.close();
+//            fos.close();
+//
+//        } catch (FileNotFoundException e) {
+//            mView.toastMessage("FileNotFoundException");
+//        } catch (IOException e) {
+//            mView.toastMessage("IOException");
+//        }
+//
+//    }
 }

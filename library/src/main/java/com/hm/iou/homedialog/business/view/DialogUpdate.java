@@ -21,9 +21,8 @@ import com.hm.iou.homedialog.R;
 
 
 /**
- * Created by liuling on 2017/11/28.
+ * Created by syl on 2017/11/28.
  * <p>
- * 该类为项目公用Dialog弹窗，包含单按钮、双按钮，使用规则和AlertDialog相似（如果只有一个按钮时，请实现setPositiveButton方法）
  */
 
 public class DialogUpdate extends Dialog {
@@ -52,7 +51,7 @@ public class DialogUpdate extends Dialog {
         private String mPositiveButtonText;
         private OnClickListener mNegativeButtonClickListener;
         private OnClickListener mPositiveButtonClickListener;
-        private boolean flagCancelable = true;
+        private boolean mFlagCancelable = true;
 
         public Builder(Context context) {
             this.mContext = context;
@@ -125,8 +124,8 @@ public class DialogUpdate extends Dialog {
         }
 
 
-        public Builder setCancelable(boolean flagCancelable) {
-            this.flagCancelable = flagCancelable;
+        public Builder setCancelable(boolean mFlagCancelable) {
+            this.mFlagCancelable = mFlagCancelable;
             return this;
         }
 
@@ -193,7 +192,7 @@ public class DialogUpdate extends Dialog {
                     }
                 });
             }
-            dialogUpdate.setCancelable(flagCancelable);
+            dialogUpdate.setCancelable(mFlagCancelable);
             dialogUpdate.setContentView(contentView);
             // 调整dialog背景大小
             WindowManager windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);

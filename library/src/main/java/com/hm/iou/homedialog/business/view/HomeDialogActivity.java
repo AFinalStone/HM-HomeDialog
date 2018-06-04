@@ -1,8 +1,7 @@
 package com.hm.iou.homedialog.business.view;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.View;
+import android.os.SystemClock;
 
 import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.BaseActivity;
@@ -13,7 +12,28 @@ import com.hm.iou.router.Router;
 
 public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implements HomeDialogContract.View {
 
-    private ProgressDialog mProgressDialog;
+    public static final String EXTRA_KEY_DIALOG_TYPE = "dialog_type";
+    public static final String EXTRA_KEY_DIALOG_TITLE = "dialog_title";
+    public static final String EXTRA_KEY_DIALOG_CONTENT = "dialog_content";
+    public static final String EXTRA_KEY_DIALOG_SUB_CONTENT = "dialog_sub_content";
+    public static final String EXTRA_KEY_DIALOG_FILE_DOWN_URL = "dialog_file_down_url";
+    public static final String EXTRA_KEY_DIALOG_AD_IMAGE_URL = "dialog_ad_image_url";
+    public static final String EXTRA_KEY_DIALOG_AD_LINK_URL = "dialog_ad_link_url";
+
+    //对话框类型
+    private String mDialogType;
+    //对话框标题
+    private String mDialogTitle;
+    //对话框内容
+    private String mDialogContent;
+    //对话框二级内容
+    private String mDialogSubContent;
+    //APP下载地址
+    private String mDialogFileDownUrl;
+    //广告图片
+    private String mDialogAdImageUrl;
+    //广告活动链接地址
+    private String mDialogAdLinkUrl;
 
     @Override
     protected int getLayoutId() {
@@ -27,48 +47,48 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
 
     @Override
     protected void initEventAndData(Bundle bundle) {
-        findViewById(R.id.frameLayout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mPresenter.getAllTypeDialog();
-    }
-
-    private void toUpdateApp() {
-        mPresenter.toUpdateApp();
-//        RxPermissions rxPermissions = new RxPermissions(this);
-//        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
-//            @Override
-//            public void accept(Boolean aBoolean) throws Exception {
-//                if (aBoolean) {
-//                    mPresenter.toUpdateApp();
-//                } else {
-//                    PermissionUtil.showStoragePermissionDialog(mContext, new PermissionUtil.OnPermissionDialogClick() {
-//                        @Override
-//                        public void onPositiveBtnClick() {
-//
-//                        }
-//
-//                        @Override
-//                        public void onNegativeBtnClick() {
-//                            toastMessage(R.string.homedialog_installation_permission_refuse);
-//                            finish();
-//                        }
-//                    });
-//                }
-//            }
-//        });
+        mDialogType = getIntent().getStringExtra(EXTRA_KEY_DIALOG_TYPE);
+        mDialogTitle = getIntent().getStringExtra(EXTRA_KEY_DIALOG_TITLE);
+        mDialogContent = getIntent().getStringExtra(EXTRA_KEY_DIALOG_CONTENT);
+        mDialogSubContent = getIntent().getStringExtra(EXTRA_KEY_DIALOG_SUB_CONTENT);
+        mDialogFileDownUrl = getIntent().getStringExtra(EXTRA_KEY_DIALOG_FILE_DOWN_URL);
+        mDialogAdImageUrl = getIntent().getStringExtra(EXTRA_KEY_DIALOG_AD_IMAGE_URL);
+        mDialogAdLinkUrl = getIntent().getStringExtra(EXTRA_KEY_DIALOG_AD_LINK_URL);
+        if (bundle != null) {
+            mDialogType = bundle.getString(EXTRA_KEY_DIALOG_TYPE);
+            mDialogTitle = bundle.getString(EXTRA_KEY_DIALOG_TITLE);
+            mDialogContent = bundle.getString(EXTRA_KEY_DIALOG_CONTENT);
+            mDialogSubContent = bundle.getString(EXTRA_KEY_DIALOG_SUB_CONTENT);
+            mDialogFileDownUrl = bundle.getString(EXTRA_KEY_DIALOG_FILE_DOWN_URL);
+            mDialogAdImageUrl = bundle.getString(EXTRA_KEY_DIALOG_AD_IMAGE_URL);
+            mDialogAdLinkUrl = bundle.getString(EXTRA_KEY_DIALOG_AD_LINK_URL);
+        }
+        mPresenter.init(mDialogType);
     }
 
     @Override
-    public void showOfficialMsgDialog(String title, String context, String subContext) {
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(EXTRA_KEY_DIALOG_TYPE, mDialogType);
+        outState.putString(EXTRA_KEY_DIALOG_TITLE, mDialogTitle);
+        outState.putString(EXTRA_KEY_DIALOG_CONTENT, mDialogContent);
+        outState.putString(EXTRA_KEY_DIALOG_SUB_CONTENT, mDialogSubContent);
+        outState.putString(EXTRA_KEY_DIALOG_FILE_DOWN_URL, mDialogFileDownUrl);
+        outState.putString(EXTRA_KEY_DIALOG_AD_IMAGE_URL, mDialogAdImageUrl);
+        outState.putString(EXTRA_KEY_DIALOG_AD_LINK_URL, mDialogAdLinkUrl);
+    }
+
+    private void toUpdateApp() {
+        mPresenter.toUpdateApp(mDialogFileDownUrl, "");
+    }
+
+    @Override
+    public void showOfficialMsgDialog() {
         new DialogUpdate.Builder(mContext)
-                .setTitle(title)
+                .setTitle(mDialogTitle)
                 .setColorBg(getResources().getColor(R.color.homedialog_color_office_msg_bg))
-                .setContent(context)
-                .setSubContent(subContext)
+                .setContent(mDialogContent)
+                .setSubContent(mDialogSubContent)
                 .setCancelable(false)
                 .setNegativeButton(getString(R.string.homedialog_quit_account), new DialogUpdate.OnClickListener() {
                     @Override
@@ -81,12 +101,12 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     }
 
     @Override
-    public void showMustUpdateDialog(String title, String context, String subContext) {
+    public void showMustUpdateDialog() {
         new DialogUpdate.Builder(mContext)
-                .setTitle(title)
+                .setTitle(mDialogTitle)
                 .setColorBg(getResources().getColor(R.color.homedialog_color_must_update_bg))
-                .setContent(context)
-                .setSubContent(subContext)
+                .setContent(mDialogContent)
+                .setSubContent(mDialogSubContent)
                 .setCancelable(false)
                 .setNegativeButton(getString(R.string.homedialog_update), new DialogUpdate.OnClickListener() {
                     @Override
@@ -99,12 +119,12 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     }
 
     @Override
-    public void showUpdateDialog(String title, String context, String subContext) {
+    public void showUpdateDialog() {
         new DialogUpdate.Builder(mContext)
-                .setTitle(title)
+                .setTitle(mDialogTitle)
                 .setColorBg(getResources().getColor(R.color.homedialog_color_update_bg))
-                .setContent(context)
-                .setSubContent(subContext)
+                .setContent(mDialogContent)
+                .setSubContent(mDialogSubContent)
                 .setCancelable(false)
                 .setNegativeButton(getString(R.string.homedialog_remainder_next), new DialogUpdate.OnClickListener() {
                     @Override
@@ -124,24 +144,26 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     }
 
     @Override
-    public void showAdvertisementDialog(String imageUrl, final String advertisementUrl) {
-        new PopWindowAdvertisement
-                .Builder(mContext)
-                .setImageUrl(imageUrl)
-                .setOnClickListener(new PopWindowAdvertisement.OnClickListener() {
+    public void showAdvertisementDialog() {
+        new DialogAdvertisement.Builder(mContext)
+                .setAdImageUrl(mDialogAdImageUrl)
+                .setCancelable(false)
+                .setOnClickListener(new DialogAdvertisement.OnClickListener() {
                     @Override
                     public void onAdvertisementClick() {
-                        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index?title=*&url=*&showtitle=*&showdivider=*&showtitlebar=*")
-                                .withString("url", advertisementUrl)
+                        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
+                                .withString("url", mDialogAdLinkUrl)
                                 .navigation(mContext);
                     }
 
                     @Override
                     public void onCloseClick() {
                         finish();
+                        overridePendingTransition(0, R.anim.uikit_activity_to_top);
                     }
-
-                }).show();
+                })
+                .create()
+                .show();
     }
 
     @Override
@@ -149,20 +171,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (mProgressDialog == null) {
-                    mProgressDialog = new ProgressDialog(mContext);
-                    mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                    mProgressDialog.setMessage("下载中...");
-                    mProgressDialog.setIndeterminate(false);
-                    mProgressDialog.setCancelable(false);
-                    mProgressDialog.show();
-                    return;
-                }
-                if (currentProgress != maxProgress) {
-                    mProgressDialog.setProgress((int) (currentProgress * 100 / maxProgress));
-                    return;
-                }
-                mProgressDialog.dismiss();
+
             }
         });
     }

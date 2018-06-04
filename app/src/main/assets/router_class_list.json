@@ -1,0 +1,9 @@
+{
+  "homedialog": [
+    {
+      "url": "hmiou://m.54jietiao.com/homedialog?dialog_type=*&dialog_title=&dialog_content=&dialog_sub_content=&dialog_file_down_url=&dialog_ad_image_ur=l&dialog_ad_link_url=",
+      "iclass": "",
+      "aclass": "com.hm.iou.homedialog.business.view.HomeDialogActivity"
+    }
+  ]
+}

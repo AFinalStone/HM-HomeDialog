@@ -1,13 +1,8 @@
 package com.hm.iou.homedialog.api;
 
-import com.hm.iou.homedialog.bean.TypeDialogBean;
-import com.hm.iou.sharedata.model.BaseResponse;
-
 import io.reactivex.Flowable;
 import okhttp3.ResponseBody;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -17,10 +12,6 @@ import retrofit2.http.Url;
  * @E-Mail : shiyaolei@dafy.com
  */
 public interface HomeDialogService {
-
-    @POST("/api/iou/user/v1/selectAlertShowByType")
-    Flowable<BaseResponse<TypeDialogBean>> getAllTypeDialog(@Body Object bean);
-
 
     @Streaming
     @GET
