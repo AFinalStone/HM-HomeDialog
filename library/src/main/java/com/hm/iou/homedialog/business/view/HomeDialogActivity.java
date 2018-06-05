@@ -86,7 +86,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     public void showOfficialMsgDialog() {
         new DialogUpdate.Builder(mContext)
                 .setTitle(mDialogTitle)
-                .setColorBg(getResources().getColor(R.color.homedialog_color_office_msg_bg))
                 .setContent(mDialogContent)
                 .setSubContent(mDialogSubContent)
                 .setCancelable(false)
@@ -104,11 +103,10 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     public void showMustUpdateDialog() {
         new DialogUpdate.Builder(mContext)
                 .setTitle(mDialogTitle)
-                .setColorBg(getResources().getColor(R.color.homedialog_color_must_update_bg))
                 .setContent(mDialogContent)
                 .setSubContent(mDialogSubContent)
                 .setCancelable(false)
-                .setNegativeButton(getString(R.string.homedialog_update), new DialogUpdate.OnClickListener() {
+                .setPositiveButton(getString(R.string.homedialog_update), new DialogUpdate.OnClickListener() {
                     @Override
                     public void onClick() {
                         toUpdateApp();
@@ -122,7 +120,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     public void showUpdateDialog() {
         new DialogUpdate.Builder(mContext)
                 .setTitle(mDialogTitle)
-                .setColorBg(getResources().getColor(R.color.homedialog_color_update_bg))
                 .setContent(mDialogContent)
                 .setSubContent(mDialogSubContent)
                 .setCancelable(false)

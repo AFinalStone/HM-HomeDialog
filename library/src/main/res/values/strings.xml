@@ -1,7 +1,7 @@
 <resources>
     <string name="homedialog_quit_account">退出账号</string>
     <string name="homedialog_update">立即升级</string>
-    <string name="homedialog_remainder_next">下次提醒</string>
+    <string name="homedialog_remainder_next">以后再说</string>
     <string name="homedialog_installation_package_maby_damage">安装包可能已经损坏，请退出后重新尝试</string>
     <string name="homedialog_installation_permission_refuse">用户拒绝授权,无法进行更新操作</string>
 </resources>

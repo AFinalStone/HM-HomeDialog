@@ -44,7 +44,6 @@ public class DialogUpdate extends Dialog {
 
         private Context mContext;
         private String mTitleText;
-        private int mBackgroundColor;
         private String mContentText;
         private String mSubContentText;
         private String mNegativeButtonText;
@@ -65,16 +64,6 @@ public class DialogUpdate extends Dialog {
          */
         public Builder setTitle(String titleText) {
             this.mTitleText = titleText;
-            return this;
-        }
-
-        /**
-         * 背景颜色
-         *
-         * @param backgroundColor
-         */
-        public Builder setColorBg(int backgroundColor) {
-            this.mBackgroundColor = backgroundColor;
             return this;
         }
 
@@ -143,17 +132,12 @@ public class DialogUpdate extends Dialog {
             dialogWindow.setGravity(Gravity.CENTER);
             // 获取Dialog布局
             final View contentView = LayoutInflater.from(mContext).inflate(R.layout.homedialog_dialog_update, null);
-            View mLlbackground = contentView.findViewById(R.id.ll_background);
             TextView tvTitle = contentView.findViewById(R.id.tv_title);
             TextView tvContent = contentView.findViewById(R.id.tv_content);
             TextView tvSubContent = contentView.findViewById(R.id.tv_subContent);
 
             if (!TextUtils.isEmpty(mTitleText)) {
                 tvTitle.setText(mTitleText);
-            }
-
-            if (mBackgroundColor != 0) {
-                mLlbackground.setBackgroundColor(mBackgroundColor);
             }
 
             if (!TextUtils.isEmpty(mContentText)) {
