@@ -10,7 +10,8 @@ public enum DialogType {
     MustUpdate("2", "重要升级"),
     Update("3", "发现新版本"),
     AdvertisementMoney("4", "活动广告(红包)"),
-    AdvertisementOther("5", "活动广告(其他)");
+    AdvertisementOther("5", "活动广告(其他)"),
+    Communique("8", "官方公告");
 
     private String value;
     private String desc;

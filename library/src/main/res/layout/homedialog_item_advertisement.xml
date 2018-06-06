@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/iv_advertisement"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-15dp"
+        android:layout_marginBottom="-10dp"
         android:background="@color/white" />
 
 </RelativeLayout>

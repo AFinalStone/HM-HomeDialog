@@ -13,6 +13,10 @@ public class HomeDialogContract {
      * 通过邮箱找回密码
      **/
     public interface View extends BaseContract.BaseView {
+        /**
+         * 官方公告
+         */
+        void showCommuniqueDialog();
 
         /**
          * 显示官方私信
@@ -56,5 +60,12 @@ public class HomeDialogContract {
          * 进行软件更新下载
          */
         void toUpdateApp(String fileUrl, String fileMD5);
+
+        /**
+         *
+         */
+        void insertCommuniqueToMsgCenter();
+
+
     }
 }

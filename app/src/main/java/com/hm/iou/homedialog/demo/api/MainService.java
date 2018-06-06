@@ -1,12 +1,12 @@
 package com.hm.iou.homedialog.demo.api;
 
 
-import com.hm.iou.homedialog.demo.bean.HomeDialogBean;
-import com.hm.iou.sharedata.model.BaseResponse;
-
 import io.reactivex.Flowable;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
+
+import com.hm.iou.homedialog.demo.bean.CommuniqueResBean;
+import com.hm.iou.homedialog.demo.bean.HomeDialogResBean;
+import com.hm.iou.sharedata.model.BaseResponse;
 
 /**
  * @author : syl
@@ -15,7 +15,13 @@ import retrofit2.http.POST;
  */
 public interface MainService {
 
-    @POST("/api/iou/user/v1/selectAlertShowByType")
-    Flowable<BaseResponse<HomeDialogBean>> getAllTypeDialog(@Body Object bean);
+    @GET("/api/iou/user/v1/selectAlertShowByType")
+    Flowable<BaseResponse<HomeDialogResBean>> getAdvertisement();
+
+    @GET("/api/iou/user/v1/checkVersion")
+    Flowable<BaseResponse<HomeDialogResBean>> checkVersion();
+
+    @GET("/api/iou/notice/v1/selectNotice")
+    Flowable<BaseResponse<CommuniqueResBean>> getCommunique();
 
 }

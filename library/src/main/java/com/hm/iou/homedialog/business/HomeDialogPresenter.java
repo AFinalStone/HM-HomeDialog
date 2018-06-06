@@ -14,6 +14,8 @@ import com.hm.iou.homedialog.dict.DialogType;
 import com.hm.iou.tools.Md5Util;
 import com.hm.iou.tools.SystemUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,6 +34,13 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
     public HomeDialogPresenter(@NonNull Context context, @NonNull HomeDialogContract.View view) {
         super(context, view);
         mFileProvider = SystemUtil.getCurrentAppPackageName(mContext);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -133,6 +142,10 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
     @Override
     public void init(String dialogType) {
 
+        if (DialogType.Communique.getValue().equals(dialogType)) {
+            mView.showCommuniqueDialog();
+            return;
+        }
         if (DialogType.OfficeMsg.getValue().equals(dialogType)) {
             mView.showOfficialMsgDialog();
             return;
@@ -159,7 +172,6 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
     @Override
     public void toUpdateApp(String fileUrl, String fileMD5) {
         SystemUtil.openWebBrowser(mContext, fileUrl);
-        mView.closeCurrPage();
 //        mUpdateAppBean.setVersionCode(3);
 //        mUpdateAppBean.setFileMD5("234243");
 //        mUpdateAppBean.setDownloadUrl("http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
@@ -211,7 +223,7 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
 //                        if (MD5.equals(md5AppHaveDown)) {
 //                            install(file);
 //                        } else {
-//                            mView.toastMessage(R.string.homedialog_installation_package_maby_damage);
+//                            mView.toastMessage(R.string.homedialog_installation_package_maybe_damage);
 //                        }
 //                    }
 //
@@ -220,6 +232,11 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
 //                        throwable.printStackTrace();
 //                    }
 //                });
+
+    }
+
+    @Override
+    public void insertCommuniqueToMsgCenter() {
 
     }
 

@@ -1,26 +1,16 @@
 package com.hm.iou.homedialog.demo;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.hm.iou.base.BaseActivity;
-import com.hm.iou.base.mvp.MvpActivityPresenter;
-import com.hm.iou.base.utils.CommSubscriber;
-import com.hm.iou.base.utils.RxUtil;
-import com.hm.iou.homedialog.business.view.HomeDialogActivity;
-import com.hm.iou.homedialog.demo.api.MainApi;
-import com.hm.iou.homedialog.demo.bean.HomeDialogBean;
 import com.hm.iou.homedialog.demo.business.IndexContract;
 import com.hm.iou.homedialog.demo.business.IndexPresenter;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.network.HttpReqManager;
 import com.hm.iou.network.HttpRequestConfig;
 import com.hm.iou.router.Router;
-import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.tools.SystemUtil;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 
 public class MainActivity extends BaseActivity<IndexPresenter> implements IndexContract.View {
 
@@ -46,7 +36,10 @@ public class MainActivity extends BaseActivity<IndexPresenter> implements IndexC
                 SystemUtil.openWebBrowser(this, "http://h5.54jietiao.com/update/android/app-release_v1.0.1.apk");
                 break;
             case R.id.btn_showAdvertisement:
-                mPresenter.getHomeDialog();
+                mPresenter.checkVersion();
+                break;
+            case R.id.btn_getCommunique:
+                mPresenter.getCommunique();
                 break;
             default:
         }
@@ -58,7 +51,7 @@ public class MainActivity extends BaseActivity<IndexPresenter> implements IndexC
         HttpRequestConfig config = new HttpRequestConfig.Builder(this)
                 .setDebug(true)
                 .setAppChannel("yyb")
-                .setAppVersion("1.0.4")
+                .setAppVersion("1.0.0")
                 .setDeviceId("123abc123")
                 .setBaseUrl("http://192.168.1.254")
                 .build();

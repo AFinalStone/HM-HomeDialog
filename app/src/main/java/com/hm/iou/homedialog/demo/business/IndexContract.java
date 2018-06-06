@@ -9,16 +9,23 @@ import com.hm.iou.base.mvp.BaseContract;
 public interface IndexContract {
 
     interface View extends BaseContract.BaseView {
+
         /**
-         * 开启弹窗广告
+         * 开启首页弹窗动画
          */
         void startHomeDialogAnim();
     }
 
     interface Presenter extends BaseContract.BasePresenter {
+
         /**
-         * 获取首页弹窗
+         * 校验是否需要升级
          */
-        void getHomeDialog();
+        void checkVersion();
+
+        /**
+         * 获取官方公告
+         */
+        void getCommunique();
     }
 }
