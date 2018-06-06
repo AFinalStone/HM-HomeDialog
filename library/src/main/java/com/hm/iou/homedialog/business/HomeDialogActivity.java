@@ -249,7 +249,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         btnPositive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityManager.getInstance().exitAllActivities();
+                mPresenter.toUpdateApp(mDialogFileDownUrl, "");
             }
         });
         viewLine.setVisibility(View.VISIBLE);
@@ -277,7 +277,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
             @Override
             public void onClick(View v) {
                 finish();
-                overridePendingTransition(0, R.anim.uikit_activity_to_top);
             }
         });
         mFrameLayout.setBackgroundColor(mColorBackground);
