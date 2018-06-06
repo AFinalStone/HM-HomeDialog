@@ -34,13 +34,11 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
     public HomeDialogPresenter(@NonNull Context context, @NonNull HomeDialogContract.View view) {
         super(context, view);
         mFileProvider = SystemUtil.getCurrentAppPackageName(mContext);
-        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     /**
