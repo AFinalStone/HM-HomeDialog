@@ -10,17 +10,22 @@ import android.text.TextUtils;
 
 import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
+import com.hm.iou.base.utils.CommSubscriber;
+import com.hm.iou.base.utils.RxUtil;
+import com.hm.iou.database.MsgCenterDbHelper;
+import com.hm.iou.homedialog.api.HomeDialogApi;
 import com.hm.iou.homedialog.dict.DialogType;
+import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.tools.Md5Util;
 import com.hm.iou.tools.SystemUtil;
-
-import org.greenrobot.eventbus.EventBus;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import io.reactivex.functions.Function;
 import okhttp3.ResponseBody;
 
 /**
@@ -234,9 +239,37 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
     }
 
     @Override
-    public void insertCommuniqueToMsgCenter() {
-
+    public void insertCommuniqueToMsgCenter(String noticeId, String pushDate, String communiqueIntro) {
+        MsgCenterDbHelper.addOrUpdateCommuniqueToCache(noticeId, pushDate, communiqueIntro);
     }
+
+    @Override
+    public void closeAdvertisement() {
+        mView.closeCurrPage();
+        HomeDialogApi.closeAdvertisement()
+                .map(RxUtil.<Integer>handleResponse())
+                .subscribeWith(new CommSubscriber<Integer>(mView) {
+                    @Override
+                    public void handleResult(Integer integer) {
+                    }
+
+                    @Override
+                    public void handleException(Throwable throwable, String s, String s1) {
+
+                    }
+
+                    @Override
+                    public boolean isShowCommError() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isShowBusinessError() {
+                        return false;
+                    }
+                });
+    }
+
 
 //    /**
 //     * 将输入流写入文件

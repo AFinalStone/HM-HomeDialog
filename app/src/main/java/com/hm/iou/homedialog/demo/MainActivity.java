@@ -11,6 +11,9 @@ import com.hm.iou.network.HttpReqManager;
 import com.hm.iou.network.HttpRequestConfig;
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.SystemUtil;
+import com.orm.SugarContext;
+import com.orm.SugarDb;
+import com.orm.SugarRecord;
 
 public class MainActivity extends BaseActivity<IndexPresenter> implements IndexContract.View {
 
@@ -48,19 +51,15 @@ public class MainActivity extends BaseActivity<IndexPresenter> implements IndexC
     private void initNet() {
         Router.init(this);
         Logger.init(this, true);
+        SugarContext.init(this);
         HttpRequestConfig config = new HttpRequestConfig.Builder(this)
                 .setDebug(true)
                 .setAppChannel("yyb")
-                .setAppVersion("1.0.0")
+                .setAppVersion("1.0.4")
                 .setDeviceId("123abc123")
                 .setBaseUrl("http://192.168.1.254")
                 .build();
         HttpReqManager.init(config);
     }
 
-
-    @Override
-    public void startHomeDialogAnim() {
-        overridePendingTransition(R.anim.uikit_activity_open_from_top, 0);
-    }
 }

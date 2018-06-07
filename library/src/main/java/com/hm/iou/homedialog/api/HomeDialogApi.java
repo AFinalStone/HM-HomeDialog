@@ -1,8 +1,10 @@
 package com.hm.iou.homedialog.api;
 
 import com.hm.iou.network.HttpReqManager;
+import com.hm.iou.sharedata.model.BaseResponse;
 
 import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
@@ -25,8 +27,19 @@ public class HomeDialogApi {
      */
     public static Flowable<ResponseBody> downloadFile(String fileUrl) {
         return getService().downloadFile(fileUrl)
-                .subscribeOn(Schedulers.io())//subscribeOn和ObserOn必须在io线程，如果在主线程会出错
+                .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 关闭广告弹窗
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<Integer>> closeAdvertisement() {
+        return getService().closeAdvertisement()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 }

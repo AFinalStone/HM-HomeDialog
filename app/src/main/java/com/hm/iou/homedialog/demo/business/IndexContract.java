@@ -10,10 +10,6 @@ public interface IndexContract {
 
     interface View extends BaseContract.BaseView {
 
-        /**
-         * 开启首页弹窗动画
-         */
-        void startHomeDialogAnim();
     }
 
     interface Presenter extends BaseContract.BasePresenter {

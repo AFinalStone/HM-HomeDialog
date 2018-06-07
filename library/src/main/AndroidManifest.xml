@@ -7,7 +7,7 @@
         <activity
             android:name="com.hm.iou.homedialog.business.HomeDialogActivity"
             android:launchMode="singleTop"
-            android:theme="@style/UikitTranslucentThemeActivity" />
+            android:theme="@style/HomeDialogTheme" />
     </application>
 
 </manifest>

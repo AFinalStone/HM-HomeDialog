@@ -61,10 +61,21 @@ public class HomeDialogContract {
          */
         void toUpdateApp(String fileUrl, String fileMD5);
 
+
         /**
+         * 把官方公共移送到消息中心
          *
+         * @param noticeId        公告id
+         * @param pushDate        公告开始的时间
+         * @param communiqueIntro 公告内容
          */
-        void insertCommuniqueToMsgCenter();
+        void insertCommuniqueToMsgCenter(String noticeId, String pushDate, String communiqueIntro);
+
+
+        /**
+         * 关闭广告弹窗的时候调用
+         */
+        void closeAdvertisement();
 
 
     }

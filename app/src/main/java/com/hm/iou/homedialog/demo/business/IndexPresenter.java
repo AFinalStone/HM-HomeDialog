@@ -42,7 +42,6 @@ public class IndexPresenter extends MvpActivityPresenter<IndexContract.View> imp
                                     .withString("dialog_ad_image_url", dialogBean.getAdUrl() + "")
                                     .withString("dialog_ad_link_url", dialogBean.getAdLinkUrl() + "")
                                     .navigation(mContext);
-                            mView.startHomeDialogAnim();
                         }
                     }
 
@@ -82,7 +81,6 @@ public class IndexPresenter extends MvpActivityPresenter<IndexContract.View> imp
                                     .withString("dialog_ad_image_url", dialogBean.getAdUrl() + "")
                                     .withString("dialog_ad_link_url", dialogBean.getAdLinkUrl() + "")
                                     .navigation(mContext);
-                            mView.startHomeDialogAnim();
                         }
                     }
 
@@ -112,11 +110,11 @@ public class IndexPresenter extends MvpActivityPresenter<IndexContract.View> imp
                     public void handleResult(CommuniqueResBean communiqueResBean) {
                         if (communiqueResBean != null) {
                             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/homedialog")
-                                    .withString("dialog_type", 8 + "")
+                                    .withString("dialog_type", 100 + "")
                                     .withString("dialog_content", communiqueResBean.getContent())
-                                    .withString("dialog_communique_push_time", communiqueResBean.getPublishTime())
+                                    .withString("communique_notice_id", communiqueResBean.getNoticeId())
+                                    .withString("communique_push_time", communiqueResBean.getPublishTime())
                                     .navigation(mContext);
-                            mView.startHomeDialogAnim();
                         }
                     }
 

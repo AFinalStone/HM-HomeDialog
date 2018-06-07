@@ -28,29 +28,21 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     public static final String EXTRA_KEY_DIALOG_FILE_DOWN_URL = "dialog_file_down_url";
     public static final String EXTRA_KEY_DIALOG_AD_IMAGE_URL = "dialog_ad_image_url";
     public static final String EXTRA_KEY_DIALOG_AD_LINK_URL = "dialog_ad_link_url";
-    public static final String EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME = "dialog_communique_push_time";
-
-    private static final int mColorBackground = 0x50000000;
+    public static final String EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID = "communique_notice_id";
+    public static final String EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME = "communique_push_time";
 
     private ViewStub mViewStubAdvertisement;
     private ViewStub mViewStubUpdate;
-    private FrameLayout mFrameLayout;
-    //对话框类型
-    private String mDialogType;
-    //对话框标题
-    private String mDialogTitle;
-    //对话框内容
-    private String mDialogContent;
-    //对话框二级内容
-    private String mDialogSubContent;
-    //APP下载地址
-    private String mDialogFileDownUrl;
-    //广告图片
-    private String mDialogAdImageUrl;
-    //广告活动链接地址
-    private String mDialogAdLinkUrl;
-    //官方公告发布的时间
-    private String mDialogCommuniquePushTime;
+
+    private String mDialogType;    //对话框类型
+    private String mDialogTitle;    //对话框标题
+    private String mDialogContent;    //对话框内容
+    private String mDialogSubContent;    //对话框二级内容
+    private String mDialogFileDownUrl;    //APP下载地址
+    private String mDialogAdImageUrl;              //广告图片
+    private String mDialogAdLinkUrl;               //广告活动链接地址
+    private String mCommuniqueNoticeId;      //官方公告ID
+    private String mCommuniquePushTime;      //官方公告发布的时间
 
     @Override
     protected int getLayoutId() {
@@ -64,7 +56,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
 
     @Override
     protected void initEventAndData(Bundle bundle) {
-        mFrameLayout = findViewById(R.id.frameLayout);
         mViewStubUpdate = findViewById(R.id.viewStub_update);
         mViewStubAdvertisement = findViewById(R.id.viewStub_advertisement);
         mDialogType = getIntent().getStringExtra(EXTRA_KEY_DIALOG_TYPE);
@@ -74,7 +65,8 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         mDialogFileDownUrl = getIntent().getStringExtra(EXTRA_KEY_DIALOG_FILE_DOWN_URL);
         mDialogAdImageUrl = getIntent().getStringExtra(EXTRA_KEY_DIALOG_AD_IMAGE_URL);
         mDialogAdLinkUrl = getIntent().getStringExtra(EXTRA_KEY_DIALOG_AD_LINK_URL);
-        mDialogCommuniquePushTime = getIntent().getStringExtra(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME);
+        mCommuniqueNoticeId = getIntent().getStringExtra(EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID);
+        mCommuniquePushTime = getIntent().getStringExtra(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME);
         if (bundle != null) {
             mDialogType = bundle.getString(EXTRA_KEY_DIALOG_TYPE);
             mDialogTitle = bundle.getString(EXTRA_KEY_DIALOG_TITLE);
@@ -83,7 +75,8 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
             mDialogFileDownUrl = bundle.getString(EXTRA_KEY_DIALOG_FILE_DOWN_URL);
             mDialogAdImageUrl = bundle.getString(EXTRA_KEY_DIALOG_AD_IMAGE_URL);
             mDialogAdLinkUrl = bundle.getString(EXTRA_KEY_DIALOG_AD_LINK_URL);
-            mDialogCommuniquePushTime = bundle.getString(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME);
+            mCommuniqueNoticeId = bundle.getString(EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID);
+            mCommuniquePushTime = bundle.getString(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME);
         }
         mPresenter.init(mDialogType);
     }
@@ -98,17 +91,12 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         outState.putString(EXTRA_KEY_DIALOG_FILE_DOWN_URL, mDialogFileDownUrl);
         outState.putString(EXTRA_KEY_DIALOG_AD_IMAGE_URL, mDialogAdImageUrl);
         outState.putString(EXTRA_KEY_DIALOG_AD_LINK_URL, mDialogAdLinkUrl);
-        outState.putString(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME, mDialogCommuniquePushTime);
+        outState.putString(EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID, mCommuniqueNoticeId);
+        outState.putString(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME, mCommuniquePushTime);
     }
 
     @Override
     public void onBackPressed() {
-    }
-
-    @Override
-    public void finish() {
-        mFrameLayout.setBackgroundColor(Color.TRANSPARENT);
-        super.finish();
     }
 
 
@@ -136,6 +124,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         btnNegative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter.insertCommuniqueToMsgCenter(mCommuniqueNoticeId, mCommuniquePushTime, mDialogContent);
                 finish();
             }
         });
@@ -149,7 +138,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
             }
         });
         viewLine.setVisibility(View.VISIBLE);
-        mFrameLayout.setBackgroundColor(mColorBackground);
     }
 
     @Override
@@ -181,7 +169,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
                 ActivityManager.getInstance().exitAllActivities();
             }
         });
-        mFrameLayout.setBackgroundColor(mColorBackground);
     }
 
     @Override
@@ -212,7 +199,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
                 mPresenter.toUpdateApp(mDialogFileDownUrl, "");
             }
         });
-        mFrameLayout.setBackgroundColor(mColorBackground);
     }
 
     @Override
@@ -253,7 +239,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
             }
         });
         viewLine.setVisibility(View.VISIBLE);
-        mFrameLayout.setBackgroundColor(mColorBackground);
     }
 
     @Override
@@ -267,19 +252,18 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         iVAdvertisement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter.closeAdvertisement();
                 Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
                         .withString("url", mDialogAdLinkUrl)
                         .navigation(mContext);
-                finish();
             }
         });
         iVClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                mPresenter.closeAdvertisement();
             }
         });
-        mFrameLayout.setBackgroundColor(mColorBackground);
     }
 
 
