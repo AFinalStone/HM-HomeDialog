@@ -28,8 +28,8 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     public static final String EXTRA_KEY_DIALOG_FILE_DOWN_URL = "dialog_file_down_url";
     public static final String EXTRA_KEY_DIALOG_AD_IMAGE_URL = "dialog_ad_image_url";
     public static final String EXTRA_KEY_DIALOG_AD_LINK_URL = "dialog_ad_link_url";
-    public static final String EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID = "communique_notice_id";
-    public static final String EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME = "communique_push_time";
+    public static final String EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID = "notice_id";
+    public static final String EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME = "notice_push_time";
 
     private ViewStub mViewStubAdvertisement;
     private ViewStub mViewStubUpdate;
@@ -41,8 +41,8 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     private String mDialogFileDownUrl;    //APP下载地址
     private String mDialogAdImageUrl;              //广告图片
     private String mDialogAdLinkUrl;               //广告活动链接地址
-    private String mCommuniqueNoticeId;      //官方公告ID
-    private String mCommuniquePushTime;      //官方公告发布的时间
+    private String mNoticeNoticeId;      //官方公告ID
+    private String mNoticePushTime;      //官方公告发布的时间
 
     @Override
     protected int getLayoutId() {
@@ -65,8 +65,8 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         mDialogFileDownUrl = getIntent().getStringExtra(EXTRA_KEY_DIALOG_FILE_DOWN_URL);
         mDialogAdImageUrl = getIntent().getStringExtra(EXTRA_KEY_DIALOG_AD_IMAGE_URL);
         mDialogAdLinkUrl = getIntent().getStringExtra(EXTRA_KEY_DIALOG_AD_LINK_URL);
-        mCommuniqueNoticeId = getIntent().getStringExtra(EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID);
-        mCommuniquePushTime = getIntent().getStringExtra(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME);
+        mNoticeNoticeId = getIntent().getStringExtra(EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID);
+        mNoticePushTime = getIntent().getStringExtra(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME);
         if (bundle != null) {
             mDialogType = bundle.getString(EXTRA_KEY_DIALOG_TYPE);
             mDialogTitle = bundle.getString(EXTRA_KEY_DIALOG_TITLE);
@@ -75,8 +75,8 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
             mDialogFileDownUrl = bundle.getString(EXTRA_KEY_DIALOG_FILE_DOWN_URL);
             mDialogAdImageUrl = bundle.getString(EXTRA_KEY_DIALOG_AD_IMAGE_URL);
             mDialogAdLinkUrl = bundle.getString(EXTRA_KEY_DIALOG_AD_LINK_URL);
-            mCommuniqueNoticeId = bundle.getString(EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID);
-            mCommuniquePushTime = bundle.getString(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME);
+            mNoticeNoticeId = bundle.getString(EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID);
+            mNoticePushTime = bundle.getString(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME);
         }
         mPresenter.init(mDialogType);
     }
@@ -91,8 +91,8 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         outState.putString(EXTRA_KEY_DIALOG_FILE_DOWN_URL, mDialogFileDownUrl);
         outState.putString(EXTRA_KEY_DIALOG_AD_IMAGE_URL, mDialogAdImageUrl);
         outState.putString(EXTRA_KEY_DIALOG_AD_LINK_URL, mDialogAdLinkUrl);
-        outState.putString(EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID, mCommuniqueNoticeId);
-        outState.putString(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME, mCommuniquePushTime);
+        outState.putString(EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID, mNoticeNoticeId);
+        outState.putString(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME, mNoticePushTime);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
 
 
     @Override
-    public void showCommuniqueDialog() {
+    public void showNoticeDialog() {
         View inflatedView = mViewStubUpdate.inflate();
         //初始化控件
         TextView tvTitle = inflatedView.findViewById(R.id.tv_title);
@@ -124,7 +124,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         btnNegative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.insertCommuniqueToMsgCenter(mCommuniqueNoticeId, mCommuniquePushTime, mDialogContent);
+                mPresenter.insertNoticeToMsgCenter(mNoticeNoticeId, mNoticePushTime, mDialogContent);
                 finish();
             }
         });

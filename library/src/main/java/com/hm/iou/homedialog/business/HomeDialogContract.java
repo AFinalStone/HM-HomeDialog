@@ -16,7 +16,7 @@ public class HomeDialogContract {
         /**
          * 官方公告
          */
-        void showCommuniqueDialog();
+        void showNoticeDialog();
 
         /**
          * 显示官方私信
@@ -65,11 +65,11 @@ public class HomeDialogContract {
         /**
          * 把官方公共移送到消息中心
          *
-         * @param noticeId        公告id
-         * @param pushDate        公告开始的时间
-         * @param communiqueIntro 公告内容
+         * @param noticeId 公告id
+         * @param pushDate 公告开始的时间
+         * @param notice   公告内容
          */
-        void insertCommuniqueToMsgCenter(String noticeId, String pushDate, String communiqueIntro);
+        void insertNoticeToMsgCenter(String noticeId, String pushDate, String notice);
 
 
         /**

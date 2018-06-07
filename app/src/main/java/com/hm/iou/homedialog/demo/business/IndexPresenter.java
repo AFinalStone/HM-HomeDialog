@@ -110,10 +110,10 @@ public class IndexPresenter extends MvpActivityPresenter<IndexContract.View> imp
                     public void handleResult(CommuniqueResBean communiqueResBean) {
                         if (communiqueResBean != null) {
                             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/homedialog")
-                                    .withString("dialog_type", 100 + "")
+                                    .withString("dialog_type", "100")
                                     .withString("dialog_content", communiqueResBean.getContent())
-                                    .withString("communique_notice_id", communiqueResBean.getNoticeId())
-                                    .withString("communique_push_time", communiqueResBean.getPublishTime())
+                                    .withString("notice_id", communiqueResBean.getNoticeId())
+                                    .withString("notice_push_time", communiqueResBean.getPublishTime())
                                     .navigation(mContext);
                         }
                     }

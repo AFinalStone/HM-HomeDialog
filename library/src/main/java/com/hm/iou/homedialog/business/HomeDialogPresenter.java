@@ -15,17 +15,17 @@ import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.database.MsgCenterDbHelper;
 import com.hm.iou.homedialog.api.HomeDialogApi;
 import com.hm.iou.homedialog.dict.DialogType;
-import com.hm.iou.sharedata.model.BaseResponse;
+import com.hm.iou.sharedata.event.CommBizEvent;
 import com.hm.iou.tools.Md5Util;
 import com.hm.iou.tools.SystemUtil;
-import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import io.reactivex.functions.Function;
 import okhttp3.ResponseBody;
 
 /**
@@ -35,6 +35,7 @@ import okhttp3.ResponseBody;
 public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract.View> implements HomeDialogContract.Present {
 
     private String mFileProvider;
+    public static final String EXTRA_KEY_MOVE_NOTICE_TO_MSG_CENTER = "HomeDialog_moveNoticeToMsgCenter";
 
     public HomeDialogPresenter(@NonNull Context context, @NonNull HomeDialogContract.View view) {
         super(context, view);
@@ -145,8 +146,8 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
     @Override
     public void init(String dialogType) {
 
-        if (DialogType.Communique.getValue().equals(dialogType)) {
-            mView.showCommuniqueDialog();
+        if (DialogType.Notice.getValue().equals(dialogType)) {
+            mView.showNoticeDialog();
             return;
         }
         if (DialogType.OfficeMsg.getValue().equals(dialogType)) {
@@ -239,8 +240,9 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
     }
 
     @Override
-    public void insertCommuniqueToMsgCenter(String noticeId, String pushDate, String communiqueIntro) {
-        MsgCenterDbHelper.addOrUpdateCommuniqueToCache(noticeId, pushDate, communiqueIntro);
+    public void insertNoticeToMsgCenter(String noticeId, String pushDate, String notice) {
+        MsgCenterDbHelper.addOrUpdateNoticeToCache(noticeId, pushDate, notice);
+        EventBus.getDefault().post(new CommBizEvent(EXTRA_KEY_MOVE_NOTICE_TO_MSG_CENTER, "官方公告成功插入到消息中心"));
     }
 
     @Override
