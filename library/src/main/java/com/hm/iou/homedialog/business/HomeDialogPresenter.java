@@ -16,6 +16,7 @@ import com.hm.iou.database.MsgCenterDbHelper;
 import com.hm.iou.homedialog.api.HomeDialogApi;
 import com.hm.iou.homedialog.dict.DialogType;
 import com.hm.iou.sharedata.event.CommBizEvent;
+import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.tools.Md5Util;
 import com.hm.iou.tools.SystemUtil;
 
@@ -26,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import io.reactivex.functions.Consumer;
 import okhttp3.ResponseBody;
 
 /**
@@ -247,29 +249,19 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
 
     @Override
     public void closeAdvertisement() {
-        mView.closeCurrPage();
         HomeDialogApi.closeAdvertisement()
-                .map(RxUtil.<Integer>handleResponse())
-                .subscribeWith(new CommSubscriber<Integer>(mView) {
+                .subscribe(new Consumer<BaseResponse<Integer>>() {
                     @Override
-                    public void handleResult(Integer integer) {
-                    }
-
-                    @Override
-                    public void handleException(Throwable throwable, String s, String s1) {
+                    public void accept(BaseResponse<Integer> integerBaseResponse) throws Exception {
 
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public boolean isShowCommError() {
-                        return false;
-                    }
+                    public void accept(Throwable throwable) throws Exception {
 
-                    @Override
-                    public boolean isShowBusinessError() {
-                        return false;
                     }
                 });
+        mView.closeCurrPage();
     }
 
 

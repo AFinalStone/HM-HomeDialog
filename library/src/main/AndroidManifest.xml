@@ -2,8 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hm.iou.homedialog">
 
-
     <application>
+
+        <activity
+            android:name="com.hm.iou.homedialog.business.AdvertisementDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.hm.iou.homedialog.business.HomeDialogActivity"
             android:launchMode="singleTop"

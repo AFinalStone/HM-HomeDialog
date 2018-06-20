@@ -252,10 +252,11 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         iVAdvertisement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(HomeDialogActivity.this, AdvertisementDetailActivity.class);
+                intent.putExtra(AdvertisementDetailActivity.EXTRA_KEY_WEB_URL, mDialogAdLinkUrl);
+                startActivity(intent);
+
                 mPresenter.closeAdvertisement();
-                Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
-                        .withString("url", mDialogAdLinkUrl)
-                        .navigation(mContext);
             }
         });
         iVClose.setOnClickListener(new View.OnClickListener() {
