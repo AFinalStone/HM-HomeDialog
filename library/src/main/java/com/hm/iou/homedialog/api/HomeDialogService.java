@@ -4,7 +4,9 @@ import com.hm.iou.sharedata.model.BaseResponse;
 
 import io.reactivex.Flowable;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -19,7 +21,9 @@ public interface HomeDialogService {
     @GET
     Flowable<ResponseBody> downloadFile(@Url String url);
 
-    @GET("/api/iou/user/v1/closeAlertShow")
-    Flowable<BaseResponse<Integer>> closeAdvertisement();
+    @POST("/api/iou/user/v1/closeAlertShow")
+    Flowable<BaseResponse<Integer>> closeAlertShow(@Body IdReqBean reqBean);
 
+    @POST("/api/iou/user/v1/confirmAlertShow")
+    Flowable<BaseResponse<Integer>> confirmAlertShow(@Body IdReqBean reqBean);
 }

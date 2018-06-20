@@ -75,8 +75,12 @@ public class HomeDialogContract {
         /**
          * 关闭广告弹窗的时候调用
          */
-        void closeAdvertisement();
+        void closeAdvertisement(String adId);
 
+        /**
+         * 点击弹窗广告时调用
+         */
+        void confirmAdvertisement(String adId);
 
     }
 }

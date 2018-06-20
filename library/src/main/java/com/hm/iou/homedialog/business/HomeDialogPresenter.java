@@ -248,8 +248,14 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
     }
 
     @Override
-    public void closeAdvertisement() {
-        HomeDialogApi.closeAdvertisement()
+    public void closeAdvertisement(String autoId) {
+        long id = 0;
+        try {
+            id = Long.valueOf(autoId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        HomeDialogApi.closeAlertShow(id)
                 .subscribe(new Consumer<BaseResponse<Integer>>() {
                     @Override
                     public void accept(BaseResponse<Integer> integerBaseResponse) throws Exception {
@@ -264,38 +270,26 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
         mView.closeCurrPage();
     }
 
+    @Override
+    public void confirmAdvertisement(String autoId) {
+        long id = 0;
+        try {
+            id = Long.valueOf(autoId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        HomeDialogApi.confirmAlertShow(id)
+                .subscribe(new Consumer<BaseResponse<Integer>>() {
+                    @Override
+                    public void accept(BaseResponse<Integer> integerBaseResponse) throws Exception {
 
-//    /**
-//     * 将输入流写入文件
-//     *
-//     * @param inputString
-//     * @param filePath
-//     */
-//    private void writeFile(InputStream inputString, String filePath) {
-//
-//        File file = new File(filePath);
-//        if (file.exists()) {
-//            file.delete();
-//        }
-//
-//        FileOutputStream fos = null;
-//        try {
-//            fos = new FileOutputStream(file);
-//
-//            byte[] b = new byte[1024];
-//
-//            int len;
-//            while ((len = inputString.read(b)) != -1) {
-//                fos.write(b, 0, len);
-//            }
-//            inputString.close();
-//            fos.close();
-//
-//        } catch (FileNotFoundException e) {
-//            mView.toastMessage("FileNotFoundException");
-//        } catch (IOException e) {
-//            mView.toastMessage("IOException");
-//        }
-//
-//    }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+        mView.closeCurrPage();
+    }
 }

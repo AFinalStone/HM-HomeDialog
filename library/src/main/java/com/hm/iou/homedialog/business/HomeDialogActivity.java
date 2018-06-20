@@ -21,6 +21,7 @@ import com.hm.iou.tools.ImageLoader;
 
 public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implements HomeDialogContract.View {
 
+    public static final String EXTRA_KEY_ID = "dialog_id";
     public static final String EXTRA_KEY_DIALOG_TYPE = "dialog_type";
     public static final String EXTRA_KEY_DIALOG_TITLE = "dialog_title";
     public static final String EXTRA_KEY_DIALOG_CONTENT = "dialog_content";
@@ -34,6 +35,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     private ViewStub mViewStubAdvertisement;
     private ViewStub mViewStubUpdate;
 
+    private String mAutoId;
     private String mDialogType;    //对话框类型
     private String mDialogTitle;    //对话框标题
     private String mDialogContent;    //对话框内容
@@ -58,6 +60,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     protected void initEventAndData(Bundle bundle) {
         mViewStubUpdate = findViewById(R.id.viewStub_update);
         mViewStubAdvertisement = findViewById(R.id.viewStub_advertisement);
+        mAutoId = getIntent().getStringExtra(EXTRA_KEY_ID);
         mDialogType = getIntent().getStringExtra(EXTRA_KEY_DIALOG_TYPE);
         mDialogTitle = getIntent().getStringExtra(EXTRA_KEY_DIALOG_TITLE);
         mDialogContent = getIntent().getStringExtra(EXTRA_KEY_DIALOG_CONTENT);
@@ -68,6 +71,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         mNoticeNoticeId = getIntent().getStringExtra(EXTRA_KEY_DIALOG_COMMUNIQUE_NOTICE_ID);
         mNoticePushTime = getIntent().getStringExtra(EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME);
         if (bundle != null) {
+            mAutoId = bundle.getString(EXTRA_KEY_ID);
             mDialogType = bundle.getString(EXTRA_KEY_DIALOG_TYPE);
             mDialogTitle = bundle.getString(EXTRA_KEY_DIALOG_TITLE);
             mDialogContent = bundle.getString(EXTRA_KEY_DIALOG_CONTENT);
@@ -84,6 +88,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putString(EXTRA_KEY_ID, mAutoId);
         outState.putString(EXTRA_KEY_DIALOG_TYPE, mDialogType);
         outState.putString(EXTRA_KEY_DIALOG_TITLE, mDialogTitle);
         outState.putString(EXTRA_KEY_DIALOG_CONTENT, mDialogContent);
@@ -256,13 +261,13 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
                 intent.putExtra(AdvertisementDetailActivity.EXTRA_KEY_WEB_URL, mDialogAdLinkUrl);
                 startActivity(intent);
 
-                mPresenter.closeAdvertisement();
+                mPresenter.confirmAdvertisement(mAutoId);
             }
         });
         iVClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.closeAdvertisement();
+                mPresenter.closeAdvertisement(mAutoId);
             }
         });
     }

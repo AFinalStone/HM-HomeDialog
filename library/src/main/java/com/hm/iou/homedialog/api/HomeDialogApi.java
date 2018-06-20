@@ -31,13 +31,18 @@ public class HomeDialogApi {
                 .unsubscribeOn(Schedulers.io());
     }
 
-    /**
-     * 关闭广告弹窗
-     *
-     * @return
-     */
-    public static Flowable<BaseResponse<Integer>> closeAdvertisement() {
-        return getService().closeAdvertisement()
+    public static Flowable<BaseResponse<Integer>> closeAlertShow(long adId) {
+        IdReqBean reqBean = new IdReqBean();
+        reqBean.setAutoId(adId);
+        return getService().closeAlertShow(reqBean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Flowable<BaseResponse<Integer>> confirmAlertShow(long adId) {
+        IdReqBean reqBean = new IdReqBean();
+        reqBean.setAutoId(adId);
+        return getService().confirmAlertShow(reqBean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
