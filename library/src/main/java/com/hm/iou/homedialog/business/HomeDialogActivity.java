@@ -18,6 +18,7 @@ import com.hm.iou.homedialog.business.HomeDialogContract;
 import com.hm.iou.homedialog.business.HomeDialogPresenter;
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.ImageLoader;
+import com.hm.iou.tools.SystemUtil;
 
 public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implements HomeDialogContract.View {
 
@@ -183,6 +184,11 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         TextView tvTitle = inflatedView.findViewById(R.id.tv_title);
         TextView tvContent = inflatedView.findViewById(R.id.tv_content);
         TextView tvSubContent = inflatedView.findViewById(R.id.tv_subContent);
+
+        //目前写死更新弹窗文案
+        mDialogTitle = "重要升级";
+        mDialogContent = String.format("当前版本%s，为了给您带来更好的体验，强烈建议大家更新至最新版本，感谢配合～", SystemUtil.getCurrentAppVersionName(this));
+        mDialogSubContent = "客服微信号：jietiaoguanjia2018";
         if (!TextUtils.isEmpty(mDialogTitle)) {
             tvTitle.setVisibility(View.VISIBLE);
             tvTitle.setText(mDialogTitle);
@@ -196,6 +202,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
             tvSubContent.setVisibility(View.VISIBLE);
             tvSubContent.setText(mDialogSubContent);
         }
+
         Button btnPositive = inflatedView.findViewById(R.id.btn_positive);
         btnPositive.setVisibility(View.VISIBLE);
         btnPositive.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +221,11 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         TextView tvContent = inflatedView.findViewById(R.id.tv_content);
         TextView tvSubContent = inflatedView.findViewById(R.id.tv_subContent);
         View viewLine = inflatedView.findViewById(R.id.view_line);
+
+        mDialogTitle = "发现新版本";
+        mDialogContent = String.format("当前版本%s，为了给您带来更好的体验，强烈建议大家更新至最新版本，感谢配合～", SystemUtil.getCurrentAppVersionName(this));
+        mDialogSubContent = "客服微信号：jietiaoguanjia2018";
+
         if (!TextUtils.isEmpty(mDialogTitle)) {
             tvTitle.setVisibility(View.VISIBLE);
             tvTitle.setText(mDialogTitle);
