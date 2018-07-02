@@ -9,7 +9,7 @@
         android:layout_width="227dp"
         android:layout_height="343dp"
         android:layout_centerInParent="true"
-        android:scaleType="fitXY" />
+        android:scaleType="centerCrop" />
 
     <ImageView
         android:id="@+id/iv_close"
@@ -20,14 +20,5 @@
         android:layout_marginTop="29dp"
         android:scaleType="fitCenter"
         android:src="@mipmap/uikit_icon_close_white" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="3dp"
-        android:layout_height="match_parent"
-        android:layout_above="@id/iv_advertisement"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-10dp"
-        android:background="@color/white" />
 
 </RelativeLayout>
