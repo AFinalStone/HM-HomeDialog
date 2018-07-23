@@ -42,9 +42,9 @@ public class AdvertisementDetailActivity extends BaseWebviewActivity {
 
         String title = StringUtil.getUnnullString(mWebView.getTitle());
         if (TextUtils.isEmpty(title)) {
-            title = "借条管家的活动";
+            title = "条管家的活动";
         }
-        String desc = "来自 借条管家 的分享";
+        String desc = "来自 条管家 的分享";
         List<PlatFormBean> list = new ArrayList<>();
         list.add(new PlatFormBean(PlatformEnum.WEIXIN));
         list.add(new PlatFormBean(PlatformEnum.WEIXIN_CIRCLE));
