@@ -39,8 +39,7 @@ allprojects {
 
 | 页面 | 路由url | 备注 |
 | ------ | ------ | ------ |
-| 首页弹窗页面 | hmiou://m.54jietiao.com/homedialog?dialog_type=* &dialog_title=&dialog_content=&dialog_sub_content=&dialog_file_down_url=&dialog_id=
-&dialog_ad_image_ur=&dialog_ad_link_url=&notice_id=&notice_push_time=|dialog_type是一个DialogType的枚举类型，("1", "官方私信"；"2", "重要升级"；"3", "发现新版本"，"4", "活动广告(红包)"，"5", "活动广告(其他)"，"100", "官方公告")，dialog_content是软件更新提醒弹窗的正文内容，dialog_sub_content是软件更新提醒弹窗的次级正文内容，dialog_id是广告弹窗的唯一id，dialog_ad_image_ur是广告弹窗的广告图片地址，dialog_ad_link_url是广告弹窗点击之后具体的活动链接地址，notice_id是系统公告的唯一id，notice_push_time是系统公告的推送时间 |
+| 首页弹窗页面 | hmiou://m.54jietiao.com/homedialog ?dialog_type=*&dialog_title=&dialog_content=&dialog_sub_content=&dialog_file_down_url=&dialog_id= &dialog_ad_image_ur=&dialog_ad_link_url=&notice_id=&notice_push_time=|dialog_type是一个DialogType的枚举类型，("1", "官方私信"；"2", "重要升级"；"3", "发现新版本"，"4", "活动广告(红包)"，"5", "活动广告(其他)"，"100", "官方公告")， dialog_content是软件更新提醒弹窗的正文内容，dialog_sub_content是软件更新提醒弹窗的次级正文内容， dialog_id是广告弹窗的唯一id，dialog_ad_image_ur是广告弹窗的广告图片地址，dialog_ad_link_url是广告弹窗点击之后具体的活动链接地址， notice_id是系统公告的唯一id，notice_push_time是系统公告的推送时间 |
 
 路由文件
 
