@@ -60,6 +60,7 @@ allprojects {
 - 集成本模块之前，需要保证一下模块已经初始化：
 
 Logger（日志记录），HM-BaseBiz初始化(基础业务模块)，HM-Network（网络框架），HM-Router（路由模块）
+，HM-DbCenter(数据库缓存模块)
 
 #### Author
 
