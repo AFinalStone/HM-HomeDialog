@@ -39,7 +39,7 @@ allprojects {
 
 | 页面 | 路由url | 备注 |
 | ------ | ------ | ------ |
-| 首页弹窗页面 | hmiou://m.54jietiao.com/homedialog ?dialog_type=*&dialog_title=&dialog_content=&dialog_sub_content=&dialog_file_down_url=&dialog_id= &dialog_ad_image_ur=&dialog_ad_link_url=&notice_id=&notice_push_time=|dialog_type是一个DialogType的枚举类型，("1", "官方私信"；"2", "重要升级"；"3", "发现新版本"，"4", "活动广告(红包)"，"5", "活动广告(其他)"，"100", "官方公告")， dialog_content是软件更新提醒弹窗的正文内容，dialog_sub_content是软件更新提醒弹窗的次级正文内容， dialog_id是广告弹窗的唯一id，dialog_ad_image_ur是广告弹窗的广告图片地址，dialog_ad_link_url是广告弹窗点击之后具体的活动链接地址， notice_id是系统公告的唯一id，notice_push_time是系统公告的推送时间 |
+| 首页弹窗页面 | hmiou://m.54jietiao.com/homedialog<br/>?dialog_type=*<br/>&dialog_title=<br/>&dialog_content=<br/>&dialog_sub_content=<br/>&dialog_file_down_url=<br/>&dialog_id=<br/>&dialog_ad_image_ur=<br/>&dialog_ad_link_url=<br/>&notice_id=<br/>&notice_push_time=|dialog_type是一个DialogType的枚举类型，("1", "官方私信"；"2", "重要升级"；"3", "发现新版本"，"4", "活动广告(红包)"，"5", "活动广告(其他)"，"100", "官方公告")<br/>dialog_content是软件更新提醒弹窗的正文内容<br/>dialog_sub_content是软件更新提醒弹窗的次级正文内容<br/>dialog_id是广告弹窗的唯一id<br/>dialog_ad_image_ur是广告弹窗的广告图片地址<br/>dialog_ad_link_url是广告弹窗点击之后具体的活动链接地址<br/>notice_id是系统公告的唯一id<br/>notice_push_time是系统公告的推送时间<br/>用户点击系统公告的最小化按钮，会把系统公告插入消息中心，并发送key为"HomeDialog_moveNoticeToMsgCenter"，content为"官方公告成功插入到消息中心"的CommBizEvent事件|
 
 路由文件
 
