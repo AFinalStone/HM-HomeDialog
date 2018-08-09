@@ -3,6 +3,7 @@ package com.hm.iou.homedialog.business;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Trace;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.BaseActivity;
+import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.homedialog.R;
 import com.hm.iou.homedialog.business.HomeDialogContract;
 import com.hm.iou.homedialog.business.HomeDialogPresenter;
@@ -208,6 +210,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         btnPositive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TraceUtil.onEvent(mContext, "err_force_update_click");
                 mPresenter.toUpdateApp(mDialogFileDownUrl, "");
             }
         });
@@ -244,6 +247,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         btnNegative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TraceUtil.onEvent(mContext, "err_update_next_click");
                 finish();
             }
         });
@@ -252,6 +256,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         btnPositive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TraceUtil.onEvent(mContext, "err_remind_update_click");
                 mPresenter.toUpdateApp(mDialogFileDownUrl, "");
             }
         });
@@ -273,12 +278,14 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
                 intent.putExtra(AdvertisementDetailActivity.EXTRA_KEY_WEB_URL, mDialogAdLinkUrl);
                 startActivity(intent);
 
+                TraceUtil.onEvent(mContext, "err_alert_ad_click");
                 mPresenter.confirmAdvertisement(mAutoId);
             }
         });
         iVClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TraceUtil.onEvent(mContext, "err_alert_ad_close_click");
                 mPresenter.closeAdvertisement(mAutoId);
             }
         });
