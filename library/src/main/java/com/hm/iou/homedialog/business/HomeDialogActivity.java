@@ -274,6 +274,12 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         iVAdvertisement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mDialogAdLinkUrl != null && mDialogAdLinkUrl.startsWith("hmiou")) {
+                    Router.getInstance().buildWithUrl(mDialogAdLinkUrl).navigation(HomeDialogActivity.this);
+                    finish();
+                    return;
+                }
+
                 Intent intent = new Intent(HomeDialogActivity.this, AdvertisementDetailActivity.class);
                 intent.putExtra(AdvertisementDetailActivity.EXTRA_KEY_WEB_URL, mDialogAdLinkUrl);
                 startActivity(intent);
@@ -294,11 +300,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
 
     @Override
     public void showProgressDialog(final long currentProgress, final long maxProgress) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
 
-            }
-        });
     }
 }
