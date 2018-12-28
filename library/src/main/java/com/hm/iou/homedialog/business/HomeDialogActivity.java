@@ -18,6 +18,7 @@ import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.homedialog.R;
 import com.hm.iou.homedialog.business.HomeDialogContract;
 import com.hm.iou.homedialog.business.HomeDialogPresenter;
+import com.hm.iou.homedialog.dict.DialogType;
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.SystemUtil;
@@ -277,6 +278,14 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
                 if (mDialogAdLinkUrl != null && mDialogAdLinkUrl.startsWith("hmiou")) {
                     Router.getInstance().buildWithUrl(mDialogAdLinkUrl).navigation(HomeDialogActivity.this);
                     finish();
+                    return;
+                }
+
+                if (DialogType.AdvertisementMoney.getValue().equals(mDialogType)) {
+                    //红包广告
+                    Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
+                            .withString("url", mDialogAdLinkUrl)
+                            .navigation(HomeDialogActivity.this);
                     return;
                 }
 
