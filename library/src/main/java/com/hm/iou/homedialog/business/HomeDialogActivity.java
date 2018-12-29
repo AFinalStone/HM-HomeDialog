@@ -287,11 +287,11 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
                             .withString("url", mDialogAdLinkUrl)
                             .navigation(HomeDialogActivity.this);
                     return;
+                } else {
+                    Intent intent = new Intent(HomeDialogActivity.this, AdvertisementDetailActivity.class);
+                    intent.putExtra(AdvertisementDetailActivity.EXTRA_KEY_WEB_URL, mDialogAdLinkUrl);
+                    startActivity(intent);
                 }
-
-                Intent intent = new Intent(HomeDialogActivity.this, AdvertisementDetailActivity.class);
-                intent.putExtra(AdvertisementDetailActivity.EXTRA_KEY_WEB_URL, mDialogAdLinkUrl);
-                startActivity(intent);
 
                 TraceUtil.onEvent(mContext, "err_alert_ad_click");
                 mPresenter.confirmAdvertisement(mAutoId);
