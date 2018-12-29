@@ -1,14 +1,11 @@
 package com.hm.iou.homedialog.business;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Trace;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,8 +13,6 @@ import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.BaseActivity;
 import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.homedialog.R;
-import com.hm.iou.homedialog.business.HomeDialogContract;
-import com.hm.iou.homedialog.business.HomeDialogPresenter;
 import com.hm.iou.homedialog.dict.DialogType;
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.ImageLoader;
@@ -286,7 +281,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
                     Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
                             .withString("url", mDialogAdLinkUrl)
                             .navigation(HomeDialogActivity.this);
-                    return;
                 } else {
                     Intent intent = new Intent(HomeDialogActivity.this, AdvertisementDetailActivity.class);
                     intent.putExtra(AdvertisementDetailActivity.EXTRA_KEY_WEB_URL, mDialogAdLinkUrl);
