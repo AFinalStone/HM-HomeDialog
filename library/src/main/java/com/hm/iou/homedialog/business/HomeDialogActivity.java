@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.BaseActivity;
+import com.hm.iou.base.utils.RouterUtil;
 import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.homedialog.R;
 import com.hm.iou.homedialog.business.HomeDialogContract;
@@ -275,24 +276,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         iVAdvertisement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mDialogAdLinkUrl != null && mDialogAdLinkUrl.startsWith("hmiou")) {
-                    Router.getInstance().buildWithUrl(mDialogAdLinkUrl).navigation(HomeDialogActivity.this);
-                    finish();
-                    return;
-                }
-
-                if (DialogType.AdvertisementMoney.getValue().equals(mDialogType)) {
-                    //红包广告
-                    Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
-                            .withString("url", mDialogAdLinkUrl)
-                            .navigation(HomeDialogActivity.this);
-                    return;
-                } else {
-                    Intent intent = new Intent(HomeDialogActivity.this, AdvertisementDetailActivity.class);
-                    intent.putExtra(AdvertisementDetailActivity.EXTRA_KEY_WEB_URL, mDialogAdLinkUrl);
-                    startActivity(intent);
-                }
-
+                RouterUtil.clickMenuLink(HomeDialogActivity.this, mDialogAdLinkUrl);
                 TraceUtil.onEvent(mContext, "err_alert_ad_click");
                 mPresenter.confirmAdvertisement(mAutoId);
             }
