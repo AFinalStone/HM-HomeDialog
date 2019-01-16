@@ -265,8 +265,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         //初始化控件
         ImageView iVAdvertisement = inflatedView.findViewById(R.id.iv_advertisement);
         ImageView iVClose = inflatedView.findViewById(R.id.iv_close);
-        ImageLoader.getInstance(mContext).displayImage(mDialogAdImageUrl, iVAdvertisement,
-                R.drawable.uikit_bg_pic_loading_place, R.drawable.uikit_bg_pic_loading_place);
+        ImageLoader.getInstance(mContext).displayImage(mDialogAdImageUrl, iVAdvertisement);
         iVAdvertisement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
