@@ -5,12 +5,6 @@
     android:layout_height="match_parent">
 
     <ViewStub
-        android:id="@+id/viewStub_update"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout="@layout/homedialog_item_update" />
-
-    <ViewStub
         android:id="@+id/viewStub_advertisement"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
