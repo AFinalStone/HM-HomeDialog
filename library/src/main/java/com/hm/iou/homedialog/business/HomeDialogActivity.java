@@ -152,7 +152,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         Dialog dialog = new HMAlertDialog.Builder(this)
                 .setTitle(mDialogTitle)
                 .setMessage(mDialogContent)
-                .setPositiveButton(R.string.homedialog_quit_account)
+                .setNegativeButton(R.string.homedialog_quit_account)
                 .setOnClickListener(new HMAlertDialog.OnClickListener() {
                     @Override
                     public void onPosClick() {
@@ -179,12 +179,12 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     @Override
     public void showMustUpdateDialog() {
         //目前写死更新弹窗文案
-        mDialogTitle = "新版本上线";
+        mDialogTitle = "重要升级";
         mDialogContent = String.format("当前版本%s，为了给您带来更好的体验，强烈建议大家更新至最新版本，感谢配合～", SystemUtil.getCurrentAppVersionName(this));
         mDialogSubContent = "客服微信号：jietiaoguanjia2018";
         Dialog dialog = new HMAlertDialog.Builder(this)
                 .setTitle(mDialogTitle)
-                .setMessage(mDialogContent)
+                .setMessage(mDialogContent + "\n\n" + mDialogSubContent)
                 .setPositiveButton(R.string.homedialog_update)
                 .setOnClickListener(new HMAlertDialog.OnClickListener() {
                     @Override
@@ -213,15 +213,15 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
 
     @Override
     public void showUpdateDialog() {
-        mDialogTitle = "新版本上线";
+        mDialogTitle = "发现新版本";
         mDialogContent = String.format("当前版本%s，为了给您带来更好的体验，强烈建议大家更新至最新版本，感谢配合～", SystemUtil.getCurrentAppVersionName(this));
         mDialogSubContent = "客服微信号：jietiaoguanjia2018";
 
         Dialog dialog = new HMAlertDialog.Builder(this)
                 .setTitle(mDialogTitle)
-                .setMessage(mDialogContent)
-                .setPositiveButton("立即更新")
-                .setNegativeButton("以后再说")
+                .setMessage(mDialogContent + "\n\n" + mDialogSubContent)
+                .setPositiveButton(R.string.homedialog_update)
+                .setNegativeButton(R.string.homedialog_remainder_next)
                 .setOnClickListener(new HMAlertDialog.OnClickListener() {
                     @Override
                     public void onPosClick() {
