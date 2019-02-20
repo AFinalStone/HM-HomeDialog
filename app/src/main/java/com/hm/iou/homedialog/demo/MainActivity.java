@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity<IndexPresenter> implements IndexC
                 .setAppChannel("yyb")
                 .setAppVersion("1.0.4")
                 .setDeviceId("123abc123")
-                .setBaseUrl("http://192.168.1.254")
+                .setBaseUrl("http://192.168.1.217")
                 .build();
         HttpReqManager.init(config);
     }

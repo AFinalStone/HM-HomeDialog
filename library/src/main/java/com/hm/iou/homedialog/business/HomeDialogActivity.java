@@ -1,22 +1,19 @@
 package com.hm.iou.homedialog.business;
 
-import android.content.Intent;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.BaseActivity;
+import com.hm.iou.base.utils.RouterUtil;
 import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.homedialog.R;
-import com.hm.iou.homedialog.dict.DialogType;
-import com.hm.iou.router.Router;
 import com.hm.iou.tools.ImageLoader;
-import com.hm.iou.tools.SystemUtil;
+import com.hm.iou.uikit.dialog.HMAlertDialog;
 
 public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implements HomeDialogContract.View {
 
@@ -32,7 +29,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     public static final String EXTRA_KEY_DIALOG_COMMUNIQUE_PUSH_TIME = "notice_push_time";
 
     private ViewStub mViewStubAdvertisement;
-    private ViewStub mViewStubUpdate;
 
     private String mAutoId;
     private String mDialogType;    //对话框类型
@@ -57,7 +53,6 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
 
     @Override
     protected void initEventAndData(Bundle bundle) {
-        mViewStubUpdate = findViewById(R.id.viewStub_update);
         mViewStubAdvertisement = findViewById(R.id.viewStub_advertisement);
         mAutoId = getIntent().getStringExtra(EXTRA_KEY_ID);
         mDialogType = getIntent().getStringExtra(EXTRA_KEY_DIALOG_TYPE);
@@ -106,157 +101,127 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
 
     @Override
     public void showNoticeDialog() {
-        View inflatedView = mViewStubUpdate.inflate();
-        //初始化控件
-        TextView tvTitle = inflatedView.findViewById(R.id.tv_title);
-        TextView tvContent = inflatedView.findViewById(R.id.tv_content);
-        TextView tvSubContent = inflatedView.findViewById(R.id.tv_subContent);
-        View viewLine = inflatedView.findViewById(R.id.view_line);
-        tvTitle.setVisibility(View.VISIBLE);
-        tvTitle.setText(R.string.homedialog_communique_title);
-        if (!TextUtils.isEmpty(mDialogContent)) {
-            tvContent.setVisibility(View.VISIBLE);
-            tvContent.setText(mDialogContent);
-        }
-        if (!TextUtils.isEmpty(mDialogSubContent)) {
-            tvSubContent.setVisibility(View.VISIBLE);
-            tvSubContent.setText(mDialogSubContent);
-        }
-        Button btnNegative = inflatedView.findViewById(R.id.btn_negative);
-        btnNegative.setVisibility(View.VISIBLE);
-        btnNegative.setText(R.string.homedialog_remove_msg_to_msg_center);
-        btnNegative.setOnClickListener(new View.OnClickListener() {
+        Dialog dialog = new HMAlertDialog.Builder(this)
+                .setTitle(R.string.homedialog_communique_title)
+                .setMessage(mDialogContent)
+                .setPositiveButton(R.string.homedialog_minimize)
+                .setNegativeButton(R.string.homedialog_remove_msg_to_msg_center)
+                .setOnClickListener(new HMAlertDialog.OnClickListener() {
+                    @Override
+                    public void onPosClick() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onNegClick() {
+                        mPresenter.insertNoticeToMsgCenter(mNoticeNoticeId, mNoticePushTime, mDialogContent);
+                        finish();
+                    }
+                })
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .create();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onClick(View v) {
-                mPresenter.insertNoticeToMsgCenter(mNoticeNoticeId, mNoticePushTime, mDialogContent);
+            public void onDismiss(DialogInterface dialog) {
                 finish();
             }
         });
-        Button btnPositive = inflatedView.findViewById(R.id.btn_positive);
-        btnPositive.setVisibility(View.VISIBLE);
-        btnPositive.setText(R.string.homedialog_minimize);
-        btnPositive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        viewLine.setVisibility(View.VISIBLE);
+        dialog.show();
     }
 
     @Override
     public void showOfficialMsgDialog() {
-        View inflatedView = mViewStubUpdate.inflate();
-        //初始化控件
-        TextView tvTitle = inflatedView.findViewById(R.id.tv_title);
-        TextView tvContent = inflatedView.findViewById(R.id.tv_content);
-        TextView tvSubContent = inflatedView.findViewById(R.id.tv_subContent);
-        if (!TextUtils.isEmpty(mDialogTitle)) {
-            tvTitle.setVisibility(View.VISIBLE);
-            tvTitle.setText(mDialogTitle);
-        }
+        Dialog dialog = new HMAlertDialog.Builder(this)
+                .setTitle(mDialogTitle)
+                .setMessage(mDialogContent)
+                .setNegativeButton(R.string.homedialog_quit_account)
+                .setOnClickListener(new HMAlertDialog.OnClickListener() {
+                    @Override
+                    public void onPosClick() {
+                        ActivityManager.getInstance().exitAllActivities();
+                    }
 
-        if (!TextUtils.isEmpty(mDialogContent)) {
-            tvContent.setVisibility(View.VISIBLE);
-            tvContent.setText(mDialogContent);
-        }
-        if (!TextUtils.isEmpty(mDialogSubContent)) {
-            tvSubContent.setVisibility(View.VISIBLE);
-            tvSubContent.setText(mDialogSubContent);
-        }
-        Button btnNegative = inflatedView.findViewById(R.id.btn_negative);
-        btnNegative.setVisibility(View.VISIBLE);
-        btnNegative.setText(R.string.homedialog_quit_account);
-        btnNegative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onNegClick() {
+                    }
+                })
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .setDismessedOnClickBtn(false)
+                .create();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onClick(View v) {
-                ActivityManager.getInstance().exitAllActivities();
+            public void onDismiss(DialogInterface dialog) {
+                finish();
             }
         });
+        dialog.show();
     }
 
     @Override
     public void showMustUpdateDialog() {
-        View inflatedView = mViewStubUpdate.inflate();
-        //初始化控件
-        TextView tvTitle = inflatedView.findViewById(R.id.tv_title);
-        TextView tvContent = inflatedView.findViewById(R.id.tv_content);
-        TextView tvSubContent = inflatedView.findViewById(R.id.tv_subContent);
-
         //目前写死更新弹窗文案
         mDialogTitle = "重要升级";
-        mDialogContent = String.format("当前版本%s，为了给您带来更好的体验，强烈建议大家更新至最新版本，感谢配合～", SystemUtil.getCurrentAppVersionName(this));
-        mDialogSubContent = "客服微信号：jietiaoguanjia2018";
-        if (!TextUtils.isEmpty(mDialogTitle)) {
-            tvTitle.setVisibility(View.VISIBLE);
-            tvTitle.setText(mDialogTitle);
-        }
+        Dialog dialog = new HMAlertDialog.Builder(this)
+                .setTitle(mDialogTitle)
+                .setMessage(mDialogContent)
+                .setPositiveButton(R.string.homedialog_update)
+                .setOnClickListener(new HMAlertDialog.OnClickListener() {
+                    @Override
+                    public void onPosClick() {
+                        TraceUtil.onEvent(mContext, "err_force_update_click");
+                        mPresenter.toUpdateApp(mDialogFileDownUrl, "");
+                    }
 
-        if (!TextUtils.isEmpty(mDialogContent)) {
-            tvContent.setVisibility(View.VISIBLE);
-            tvContent.setText(mDialogContent);
-        }
-        if (!TextUtils.isEmpty(mDialogSubContent)) {
-            tvSubContent.setVisibility(View.VISIBLE);
-            tvSubContent.setText(mDialogSubContent);
-        }
+                    @Override
+                    public void onNegClick() {
 
-        Button btnPositive = inflatedView.findViewById(R.id.btn_positive);
-        btnPositive.setVisibility(View.VISIBLE);
-        btnPositive.setOnClickListener(new View.OnClickListener() {
+                    }
+                })
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .setDismessedOnClickBtn(false)
+                .create();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onClick(View v) {
-                TraceUtil.onEvent(mContext, "err_force_update_click");
-                mPresenter.toUpdateApp(mDialogFileDownUrl, "");
+            public void onDismiss(DialogInterface dialog) {
+                finish();
             }
         });
+        dialog.show();
     }
 
     @Override
     public void showUpdateDialog() {
-        View inflatedView = mViewStubUpdate.inflate();
-        //初始化控件
-        TextView tvTitle = inflatedView.findViewById(R.id.tv_title);
-        TextView tvContent = inflatedView.findViewById(R.id.tv_content);
-        TextView tvSubContent = inflatedView.findViewById(R.id.tv_subContent);
-        View viewLine = inflatedView.findViewById(R.id.view_line);
-
         mDialogTitle = "发现新版本";
-        mDialogContent = String.format("当前版本%s，为了给您带来更好的体验，强烈建议大家更新至最新版本，感谢配合～", SystemUtil.getCurrentAppVersionName(this));
-        mDialogSubContent = "客服微信号：jietiaoguanjia2018";
+        Dialog dialog = new HMAlertDialog.Builder(this)
+                .setTitle(mDialogTitle)
+                .setMessage(mDialogContent)
+                .setPositiveButton(R.string.homedialog_update)
+                .setNegativeButton(R.string.homedialog_remainder_next)
+                .setOnClickListener(new HMAlertDialog.OnClickListener() {
+                    @Override
+                    public void onPosClick() {
+                        TraceUtil.onEvent(mContext, "err_remind_update_click");
+                        mPresenter.toUpdateApp(mDialogFileDownUrl, "");
+                    }
 
-        if (!TextUtils.isEmpty(mDialogTitle)) {
-            tvTitle.setVisibility(View.VISIBLE);
-            tvTitle.setText(mDialogTitle);
-        }
-
-        if (!TextUtils.isEmpty(mDialogContent)) {
-            tvContent.setVisibility(View.VISIBLE);
-            tvContent.setText(mDialogContent);
-        }
-        if (!TextUtils.isEmpty(mDialogSubContent)) {
-            tvSubContent.setVisibility(View.VISIBLE);
-            tvSubContent.setText(mDialogSubContent);
-        }
-        Button btnNegative = inflatedView.findViewById(R.id.btn_negative);
-        btnNegative.setVisibility(View.VISIBLE);
-        btnNegative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onNegClick() {
+                        TraceUtil.onEvent(mContext, "err_update_next_click");
+                    }
+                })
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .create();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onClick(View v) {
-                TraceUtil.onEvent(mContext, "err_update_next_click");
+            public void onDismiss(DialogInterface dialog) {
                 finish();
             }
         });
-        Button btnPositive = inflatedView.findViewById(R.id.btn_positive);
-        btnPositive.setVisibility(View.VISIBLE);
-        btnPositive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TraceUtil.onEvent(mContext, "err_remind_update_click");
-                mPresenter.toUpdateApp(mDialogFileDownUrl, "");
-            }
-        });
-        viewLine.setVisibility(View.VISIBLE);
+        dialog.show();
     }
 
     @Override
@@ -269,23 +234,7 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
         iVAdvertisement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mDialogAdLinkUrl != null && mDialogAdLinkUrl.startsWith("hmiou")) {
-                    Router.getInstance().buildWithUrl(mDialogAdLinkUrl).navigation(HomeDialogActivity.this);
-                    finish();
-                    return;
-                }
-
-                if (DialogType.AdvertisementMoney.getValue().equals(mDialogType)) {
-                    //红包广告
-                    Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
-                            .withString("url", mDialogAdLinkUrl)
-                            .navigation(HomeDialogActivity.this);
-                } else {
-                    Intent intent = new Intent(HomeDialogActivity.this, AdvertisementDetailActivity.class);
-                    intent.putExtra(AdvertisementDetailActivity.EXTRA_KEY_WEB_URL, mDialogAdLinkUrl);
-                    startActivity(intent);
-                }
-
+                RouterUtil.clickMenuLink(HomeDialogActivity.this, mDialogAdLinkUrl);
                 TraceUtil.onEvent(mContext, "err_alert_ad_click");
                 mPresenter.confirmAdvertisement(mAutoId);
             }
@@ -304,4 +253,5 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     public void showProgressDialog(final long currentProgress, final long maxProgress) {
 
     }
+
 }
