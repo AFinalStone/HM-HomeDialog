@@ -1,34 +1,20 @@
 package com.hm.iou.homedialog.business;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
-import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
-import com.hm.iou.base.utils.CommSubscriber;
-import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.database.MsgCenterDbHelper;
 import com.hm.iou.homedialog.api.HomeDialogApi;
 import com.hm.iou.homedialog.dict.DialogType;
 import com.hm.iou.sharedata.event.CommBizEvent;
 import com.hm.iou.sharedata.model.BaseResponse;
-import com.hm.iou.tools.Md5Util;
 import com.hm.iou.tools.SystemUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import io.reactivex.functions.Consumer;
-import okhttp3.ResponseBody;
 
 /**
  * @author syl
@@ -91,12 +77,16 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
 
     @Override
     public void closeAdvertisement(String autoId) {
+        if (TextUtils.isEmpty(autoId))
+            return;
         long id = 0;
         try {
             id = Long.valueOf(autoId);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (id == 0)
+            return;
         HomeDialogApi.closeAlertShow(id)
                 .subscribe(new Consumer<BaseResponse<Integer>>() {
                     @Override
@@ -114,12 +104,17 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
 
     @Override
     public void confirmAdvertisement(String autoId) {
+        if (TextUtils.isEmpty(autoId))
+            return;
+
         long id = 0;
         try {
             id = Long.valueOf(autoId);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (id == 0)
+            return;
         HomeDialogApi.confirmAlertShow(id)
                 .subscribe(new Consumer<BaseResponse<Integer>>() {
                     @Override
