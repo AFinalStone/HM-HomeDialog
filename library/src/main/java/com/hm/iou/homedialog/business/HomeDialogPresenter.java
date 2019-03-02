@@ -77,16 +77,20 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
 
     @Override
     public void closeAdvertisement(String autoId) {
-        if (TextUtils.isEmpty(autoId))
+        if (TextUtils.isEmpty(autoId)) {
+            mView.closeCurrPage();
             return;
+        }
         long id = 0;
         try {
             id = Long.valueOf(autoId);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (id == 0)
+        if (id == 0) {
+            mView.closeCurrPage();
             return;
+        }
         HomeDialogApi.closeAlertShow(id)
                 .subscribe(new Consumer<BaseResponse<Integer>>() {
                     @Override
@@ -104,8 +108,10 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
 
     @Override
     public void confirmAdvertisement(String autoId) {
-        if (TextUtils.isEmpty(autoId))
+        if (TextUtils.isEmpty(autoId)) {
+            mView.closeCurrPage();
             return;
+        }
 
         long id = 0;
         try {
@@ -113,8 +119,10 @@ public class HomeDialogPresenter extends MvpActivityPresenter<HomeDialogContract
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (id == 0)
+        if (id == 0) {
+            mView.closeCurrPage();
             return;
+        }
         HomeDialogApi.confirmAlertShow(id)
                 .subscribe(new Consumer<BaseResponse<Integer>>() {
                     @Override
