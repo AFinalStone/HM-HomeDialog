@@ -17,7 +17,7 @@
         <item name="android:windowAnimationStyle">@style/HomeDialogActivityAnimation</item>
     </style>
 
-    <style name="HomeDialogActivityAnimation">
+    <style name="HomeDialogActivityAnimation" parent="android:Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@null</item>
         <item name="android:activityOpenExitAnimation">@null</item>
         <item name="android:activityCloseEnterAnimation">@null</item>

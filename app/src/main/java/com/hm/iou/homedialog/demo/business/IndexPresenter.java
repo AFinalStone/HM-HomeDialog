@@ -1,12 +1,16 @@
 package com.hm.iou.homedialog.demo.business;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.hm.iou.base.comm.ClipBoardBean;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
+import com.hm.iou.homedialog.business.HomeAddFriendActivity;
 import com.hm.iou.homedialog.demo.api.MainApi;
 import com.hm.iou.homedialog.demo.bean.CommuniqueResBean;
 import com.hm.iou.homedialog.demo.bean.HomeDialogResBean;
@@ -123,5 +127,21 @@ public class IndexPresenter extends MvpActivityPresenter<IndexContract.View> imp
 
                     }
                 });
+    }
+
+    @Override
+    public void toAddFriendDialog() {
+        ClipBoardBean clipBoardBean = new ClipBoardBean();
+        clipBoardBean.setShearCode("04");
+        clipBoardBean.setShearUrl("hmiou://m.54jietiao.com/message/firend_detail?userId=1099");
+        ClipBoardBean.ExtInfo extInfo = new ClipBoardBean.ExtInfo();
+        extInfo.setSex(1);
+        extInfo.setAvatarUrl("https://iou-test.oss-cn-shanghai.aliyuncs.com/img/18/2019/01/201901291631333994.jpg?1548750688000");
+        extInfo.setShowId("1000117");
+        extInfo.setNickName("小管家");
+        Intent intent = new Intent(mContext, HomeAddFriendActivity.class);
+        intent.putExtra(HomeAddFriendActivity.EXTRA_KEY_CLIPBOARD_INFO, clipBoardBean);
+        intent.putExtra(HomeAddFriendActivity.EXTRA_KEY_EXT_INFO, (Parcelable) extInfo);
+        mContext.startActivity(intent);
     }
 }

@@ -21,6 +21,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:scaleType="fitCenter"
-        android:src="@mipmap/uikit_icon_close_white" />
+        android:src="@mipmap/uikit_ic_close_white" />
 
 </RelativeLayout>

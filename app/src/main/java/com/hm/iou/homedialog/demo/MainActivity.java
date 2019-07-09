@@ -12,8 +12,6 @@ import com.hm.iou.network.HttpRequestConfig;
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.SystemUtil;
 import com.orm.SugarContext;
-import com.orm.SugarDb;
-import com.orm.SugarRecord;
 
 public class MainActivity extends BaseActivity<IndexPresenter> implements IndexContract.View {
 
@@ -43,6 +41,9 @@ public class MainActivity extends BaseActivity<IndexPresenter> implements IndexC
                 break;
             case R.id.btn_getCommunique:
                 mPresenter.getCommunique();
+                break;
+            case R.id.btn_clipboard:
+                mPresenter.toAddFriendDialog();
                 break;
             default:
         }

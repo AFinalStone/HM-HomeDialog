@@ -7,6 +7,12 @@
             android:name="com.hm.iou.homedialog.business.HomeDialogActivity"
             android:launchMode="singleTop"
             android:theme="@style/HomeDialogTheme" />
+
+        <activity
+            android:name="com.hm.iou.homedialog.business.HomeAddFriendActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/HomeDialogTheme" />
+
     </application>
 
 </manifest>

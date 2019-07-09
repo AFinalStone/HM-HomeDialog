@@ -23,5 +23,7 @@ public interface IndexContract {
          * 获取官方公告
          */
         void getCommunique();
+
+        void toAddFriendDialog();
     }
 }

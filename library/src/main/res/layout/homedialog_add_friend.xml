@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical"
+    >
+
+    <RelativeLayout
+        android:id="@+id/rl_friend_content"
+        android:layout_width="260dp"
+        android:layout_height="328dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        >
+
+        <com.hm.iou.uikit.ShapedImageView
+            android:id="@+id/iv_friend_avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:shape_mode="circle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:src="@mipmap/uikit_icon_header_unknow"
+            />
+
+        <ImageView
+            android:id="@+id/iv_friend_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/iv_friend_avatar"
+            android:layout_alignBottom="@id/iv_friend_avatar"
+            android:src="@mipmap/uikit_ic_gender_man"
+            />
+
+        <TextView
+            android:id="@+id/tv_friend_nickname"
+            style="@style/UikitTextView"
+            android:textSize="20dp"
+            android:textColor="@color/uikit_text_sub_content"
+            android:layout_below="@id/iv_friend_sex"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="22dp"
+            tools:text="谁家的小狼狗"
+            />
+
+        <TextView
+            android:id="@+id/tv_friend_showid"
+            style="@style/UikitTextView"
+            android:textSize="16dp"
+            android:textColor="@color/uikit_text_auxiliary"
+            android:layout_below="@id/tv_friend_nickname"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            tools:text="ID：277383883"
+            />
+
+        <Button
+            android:id="@+id/btn_friend_submit"
+            style="@style/UikitHMButton.Large.Main"
+            android:layout_width="130dp"
+            android:text="遇见好友"
+            android:layout_below="@id/tv_friend_showid"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_friend_close"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:layout_below="@id/rl_friend_content"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitCenter"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/uikit_ic_close_white" />
+
+</RelativeLayout>
