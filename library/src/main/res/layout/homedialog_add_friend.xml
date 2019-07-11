@@ -16,11 +16,10 @@
         android:layout_centerHorizontal="true"
         >
 
-        <com.hm.iou.uikit.ShapedImageView
+        <com.hm.iou.uikit.CircleImageView
             android:id="@+id/iv_friend_avatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:shape_mode="circle"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="45dp"
             android:src="@mipmap/uikit_icon_header_unknow"

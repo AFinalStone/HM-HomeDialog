@@ -50,8 +50,8 @@ class HomeAddFriendActivity : BaseActivity<MvpActivityPresenter<BaseContract.Bas
     }
 
     override fun finish() {
-        overridePendingTransition(0, 0)
         super.finish()
+        overridePendingTransition(0, 0)
     }
 
     private fun setBgRadius() {

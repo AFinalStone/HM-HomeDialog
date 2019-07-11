@@ -95,6 +95,12 @@ public class HomeDialogActivity extends BaseActivity<HomeDialogPresenter> implem
     }
 
     @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
     public void onBackPressed() {
     }
 
