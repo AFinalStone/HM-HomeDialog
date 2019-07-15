@@ -6,6 +6,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/umsdk/release' }
         mavenCentral()
     }
     dependencies {
@@ -21,6 +22,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/umsdk/release' }
         maven { url "https://jitpack.io" }
         maven { url 'file:///Users/hjy/.m2/repository/' }
         maven { url 'file:///Users/syl/.m2/repository/' }
