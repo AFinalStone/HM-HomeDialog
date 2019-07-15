@@ -39,7 +39,7 @@
             style="@style/UikitTextView"
             android:textSize="20dp"
             android:textColor="@color/uikit_text_sub_content"
-            android:layout_below="@id/iv_friend_sex"
+            android:layout_below="@id/iv_friend_avatar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22dp"
             tools:text="谁家的小狼狗"
