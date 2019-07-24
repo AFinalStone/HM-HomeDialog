@@ -44,9 +44,9 @@
             android:layout_marginTop="22dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:layout_marginLeft="45dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            tools:text=""
+            tools:text="这是我的昵称这是我的昵称这是我的昵称"
             />
 
         <TextView
