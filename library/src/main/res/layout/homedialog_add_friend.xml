@@ -42,7 +42,11 @@
             android:layout_below="@id/iv_friend_sex"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22dp"
-            tools:text="谁家的小狼狗"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="15dp"
+            tools:text=""
             />
 
         <TextView
