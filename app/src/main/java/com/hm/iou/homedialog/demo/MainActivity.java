@@ -1,9 +1,13 @@
 package com.hm.iou.homedialog.demo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 
 import com.hm.iou.base.BaseActivity;
+import com.hm.iou.base.comm.ClipBoardBean;
+import com.hm.iou.homedialog.business.HomeBorrowCodeActivity;
 import com.hm.iou.homedialog.demo.business.IndexContract;
 import com.hm.iou.homedialog.demo.business.IndexPresenter;
 import com.hm.iou.logger.Logger;
@@ -44,6 +48,21 @@ public class MainActivity extends BaseActivity<IndexPresenter> implements IndexC
                 break;
             case R.id.btn_clipboard:
                 mPresenter.toAddFriendDialog();
+                break;
+            case R.id.btn_borrow_code:
+                ClipBoardBean clipBoardBean = new ClipBoardBean();
+                clipBoardBean.setShearCode("07");
+                clipBoardBean.setShearUrl("hmiou://m.54jietiao.com/ioucode/clipboard_detail?code=BR190911101311000297");
+                ClipBoardBean.BorrowCodeInfo borrowCodeInfo = new ClipBoardBean.BorrowCodeInfo();
+                borrowCodeInfo.title = "我有闲置资金，发布了一条出借信息，寻找诚信的借款人";
+                borrowCodeInfo.amount = "¥56800";
+                borrowCodeInfo.deadline = "60天";
+                borrowCodeInfo.interest = "¥10";
+                borrowCodeInfo.overdueInterestDesc = "未还金额的万分之6*逾期天数";
+                Intent intent = new Intent(this, HomeBorrowCodeActivity.class);
+                intent.putExtra(HomeBorrowCodeActivity.EXTRA_KEY_CLIPBOARD_INFO, clipBoardBean);
+                intent.putExtra(HomeBorrowCodeActivity.EXTRA_KEY_BORROW_CODE_INFO, (Parcelable) borrowCodeInfo);
+                startActivity(intent);
                 break;
             default:
         }

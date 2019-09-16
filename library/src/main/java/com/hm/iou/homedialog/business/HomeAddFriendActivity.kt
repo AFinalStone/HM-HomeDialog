@@ -12,6 +12,7 @@ import com.hm.iou.base.mvp.MvpActivityPresenter
 import com.hm.iou.base.utils.RouterUtil
 import com.hm.iou.homedialog.R
 import com.hm.iou.tools.ImageLoader
+import com.hm.iou.tools.kt.dp2px
 import kotlinx.android.synthetic.main.homedialog_add_friend.*
 
 /**
@@ -39,7 +40,9 @@ class HomeAddFriendActivity : BaseActivity<MvpActivityPresenter<BaseContract.Bas
             mExtInfo = getParcelable(EXTRA_KEY_EXT_INFO)
         }
 
-        setBgRadius()
+        setBgRadius(rl_friend_content, dp2px(4).toFloat())
+        setBgRadius(btn_friend_submit, dp2px(20).toFloat())
+
         initViews()
     }
 
@@ -54,17 +57,16 @@ class HomeAddFriendActivity : BaseActivity<MvpActivityPresenter<BaseContract.Bas
         overridePendingTransition(0, 0)
     }
 
-    private fun setBgRadius() {
+    private fun setBgRadius(view: View, radius: Float) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val radius = resources.displayMetrics.density * 4
-            rl_friend_content.outlineProvider = object : ViewOutlineProvider() {
+            view.outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View?, outline: Outline?) {
                     view?.let {
                         outline?.setRoundRect(0, 0, view.width, view.height, radius)
                     }
                 }
             }
-            rl_friend_content.clipToOutline = true
+            view.clipToOutline = true
         }
     }
 

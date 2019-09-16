@@ -13,6 +13,11 @@
             android:launchMode="singleTop"
             android:theme="@style/HomeDialogTheme" />
 
+        <activity
+            android:name="com.hm.iou.homedialog.business.HomeBorrowCodeActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/HomeDialogTheme" />
+
     </application>
 
 </manifest>

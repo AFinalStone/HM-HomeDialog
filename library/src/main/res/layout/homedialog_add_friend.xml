@@ -64,6 +64,7 @@
             android:id="@+id/btn_friend_submit"
             style="@style/UikitHMButton.Large.Main"
             android:layout_width="130dp"
+            android:layout_height="40dp"
             android:text="遇见好友"
             android:layout_below="@id/tv_friend_showid"
             android:layout_centerHorizontal="true"
