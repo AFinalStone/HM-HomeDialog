@@ -81,8 +81,8 @@ class HomeBorrowCodeActivity : BaseActivity<MvpActivityPresenter<BaseContract.Ba
 
         tv_dialog_title.text = mBorrowCodeInfo?.title
         tv_dialog_amount.text = "出借金额：${mBorrowCodeInfo?.amount}"
-        tv_dialog_days.text = "出借期限：${mBorrowCodeInfo?.deadline}"
-        tv_dialog_interest.text = "合计利息：${mBorrowCodeInfo?.interest}"
+        tv_dialog_days.text = "借款周期：${mBorrowCodeInfo?.deadline}"
+        tv_dialog_interest.text = "利息合计：${mBorrowCodeInfo?.interest}"
         tv_dialog_overdue_interest.text = "逾期利息：${mBorrowCodeInfo?.overdueInterestDesc}"
 
         btn_dialog_submit.clickWithDuration {

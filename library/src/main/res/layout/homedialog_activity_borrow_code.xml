@@ -40,7 +40,7 @@
             android:layout_below="@id/tv_dialog_amount"
             android:layout_marginTop="10dp"
             android:textColor="@color/uikit_text_sub_content"
-            tools:text="出借期限：30天" />
+            tools:text="借款周期：30天" />
 
         <TextView
             android:id="@+id/tv_dialog_interest"
@@ -48,7 +48,7 @@
             android:layout_below="@id/tv_dialog_days"
             android:layout_marginTop="10dp"
             android:textColor="@color/uikit_text_sub_content"
-            tools:text="合计利息：￥100 " />
+            tools:text="利息合计：￥100 " />
 
         <TextView
             android:id="@+id/tv_dialog_overdue_interest"
