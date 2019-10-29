@@ -8,37 +8,57 @@
 
     <RelativeLayout
         android:id="@+id/rl_friend_content"
-        android:layout_width="280dp"
-        android:layout_height="360dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@color/white"
+        android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="40dp"
+        android:paddingTop="20dp"
         android:paddingRight="40dp"
-        android:gravity="center"
+        android:paddingBottom="40dp"
         >
+
+        <com.hm.iou.uikit.CircleImageView
+            android:id="@+id/iv_dialog_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/uikit_icon_header_unknow" />
 
         <TextView
             android:id="@+id/tv_dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我有闲置资金，发布了一条出借信息，寻找诚信的借款人"
-            android:textColor="@color/uikit_text_main_content"
-            android:textSize="18sp" />
+            android:layout_below="@id/iv_dialog_avatar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="我有“闲置”资金"
+            android:textColor="#FF1A6B20"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tv_dialog_nickname"
+            style="@style/UikitTextView"
+            android:layout_below="@id/tv_dialog_title"
+            android:layout_marginTop="18dp"
+            android:textColor="@color/uikit_text_sub_content"
+            tools:text="金主昵称：貂蝉" />
 
         <TextView
             android:id="@+id/tv_dialog_amount"
             style="@style/UikitTextView"
-            android:layout_below="@id/tv_dialog_title"
+            android:layout_below="@id/tv_dialog_nickname"
+            android:layout_marginTop="8dp"
             android:textColor="@color/uikit_text_sub_content"
-            android:layout_marginTop="20dp"
-            tools:text="出借金额：￥10000" />
+            tools:text="闲置资金：￥10000" />
 
         <TextView
             android:id="@+id/tv_dialog_days"
             style="@style/UikitTextView"
             android:layout_below="@id/tv_dialog_amount"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:textColor="@color/uikit_text_sub_content"
             tools:text="借款周期：30天" />
 
@@ -46,7 +66,7 @@
             android:id="@+id/tv_dialog_interest"
             style="@style/UikitTextView"
             android:layout_below="@id/tv_dialog_days"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:textColor="@color/uikit_text_sub_content"
             tools:text="利息合计：￥100 " />
 
@@ -54,19 +74,23 @@
             android:id="@+id/tv_dialog_overdue_interest"
             style="@style/UikitTextView"
             android:layout_below="@id/tv_dialog_interest"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:textColor="@color/uikit_text_sub_content"
             tools:text="逾期利息：未还金额的万6" />
 
         <Button
             android:id="@+id/btn_dialog_submit"
-            style="@style/UikitHMButton.Large.Main"
+            style="@style/UikitHMButton.Large"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_width="130dp"
             android:layout_below="@id/tv_dialog_overdue_interest"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="36dp"
-            android:text="查看详情" />
+            android:layout_marginTop="26dp"
+            android:background="@drawable/homedialog_btn_borrow_code"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="查看详情"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 

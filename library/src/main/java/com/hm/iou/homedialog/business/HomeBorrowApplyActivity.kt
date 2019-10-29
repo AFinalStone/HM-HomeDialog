@@ -20,9 +20,9 @@ import kotlinx.android.synthetic.main.homedialog_activity_borrow_code.*
 /**
  * Created by hjy on 2019/9/16
  *
- * 首页借款码剪切板弹窗
+ * 首页借款申请书剪切板弹窗
  */
-class HomeBorrowCodeActivity : BaseActivity<MvpActivityPresenter<BaseContract.BaseView>>() {
+class HomeBorrowApplyActivity : BaseActivity<MvpActivityPresenter<BaseContract.BaseView>>() {
 
     companion object {
         const val EXTRA_KEY_CLIPBOARD_INFO: String = "clipboard"
@@ -81,15 +81,15 @@ class HomeBorrowCodeActivity : BaseActivity<MvpActivityPresenter<BaseContract.Ba
 
         //todo 接口需要返回头像
         ImageLoader.getInstance(this).displayImage("", iv_dialog_avatar, R.mipmap.uikit_icon_header_unknow, R.mipmap.uikit_icon_header_unknow)
-        tv_dialog_title.text = "我有“闲置”资金"           //TODO 是否接口修改
-        tv_dialog_title.setTextColor(0xFF1A6B20.toInt())
-        tv_dialog_nickname.text = "金主昵称：貂蝉"        //TODO 接口昵称需要返回
-        tv_dialog_amount.text = "闲置资金：${mBorrowCodeInfo?.amount}"
-        tv_dialog_days.text = "借款周期：${mBorrowCodeInfo?.deadline}"
+        tv_dialog_title.text = "我想“求借”资金"           //TODO 是否接口修改
+        tv_dialog_title.setTextColor(0xFFA22A27.toInt())
+        tv_dialog_nickname.text = "用户昵称：貂蝉"        //TODO 接口昵称需要返回
+        tv_dialog_amount.text = "求借资金：${mBorrowCodeInfo?.amount}"
+        tv_dialog_days.text = "借款期限：${mBorrowCodeInfo?.deadline}"
         tv_dialog_interest.text = "利息合计：${mBorrowCodeInfo?.interest}"
         tv_dialog_overdue_interest.text = "逾期利息：${mBorrowCodeInfo?.overdueInterestDesc}"
-        btn_dialog_submit.text = "共享${mBorrowCodeInfo?.amount?.replace("¥", "")?.replace("￥", "")}元"
-        btn_dialog_submit.setBackgroundResource(R.drawable.homedialog_btn_borrow_code)
+        btn_dialog_submit.text = "求借${mBorrowCodeInfo?.amount?.replace("¥", "")?.replace("￥", "")}元"
+        btn_dialog_submit.setBackgroundResource(R.drawable.homedialog_btn_borrow_apply)
         btn_dialog_submit.clickWithDuration {
             RouterUtil.clickMenuLink(this, mClipBoardInfo?.shearUrl)
             finish()
