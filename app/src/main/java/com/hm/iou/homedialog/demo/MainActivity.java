@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.hm.iou.base.BaseActivity;
 import com.hm.iou.base.comm.ClipBoardBean;
+import com.hm.iou.homedialog.business.HomeBorrowApplyActivity;
 import com.hm.iou.homedialog.business.HomeBorrowCodeActivity;
 import com.hm.iou.homedialog.demo.business.IndexContract;
 import com.hm.iou.homedialog.demo.business.IndexPresenter;
@@ -49,13 +50,14 @@ public class MainActivity extends BaseActivity<IndexPresenter> implements IndexC
             case R.id.btn_clipboard:
                 mPresenter.toAddFriendDialog();
                 break;
-            case R.id.btn_borrow_code:
+            case R.id.btn_borrow_code: {
                 ClipBoardBean clipBoardBean = new ClipBoardBean();
                 clipBoardBean.setShearCode("07");
                 clipBoardBean.setShearUrl("hmiou://m.54jietiao.com/ioucode/clipboard_detail?code=BR190911101311000297");
                 ClipBoardBean.BorrowCodeInfo borrowCodeInfo = new ClipBoardBean.BorrowCodeInfo();
-                borrowCodeInfo.title = "我有闲置资金，发布了一条出借信息，寻找诚信的借款人";
+                borrowCodeInfo.title = "我有“闲置”资金";
                 borrowCodeInfo.amount = "¥56800";
+                borrowCodeInfo.nickName = "陈小毛";
                 borrowCodeInfo.deadline = "60天";
                 borrowCodeInfo.interest = "¥10";
                 borrowCodeInfo.overdueInterestDesc = "未还金额的万分之6*逾期天数";
@@ -64,6 +66,24 @@ public class MainActivity extends BaseActivity<IndexPresenter> implements IndexC
                 intent.putExtra(HomeBorrowCodeActivity.EXTRA_KEY_BORROW_CODE_INFO, (Parcelable) borrowCodeInfo);
                 startActivity(intent);
                 break;
+            }
+            case R.id.btn_borrow_apply: {
+                ClipBoardBean clipBoardBean = new ClipBoardBean();
+                clipBoardBean.setShearCode("07");
+                clipBoardBean.setShearUrl("hmiou://m.54jietiao.com/ioucode/clipboard_detail?code=BR190911101311000297");
+                ClipBoardBean.BorrowCodeInfo borrowCodeInfo = new ClipBoardBean.BorrowCodeInfo();
+                borrowCodeInfo.title = "我想“求借”资金";
+                borrowCodeInfo.amount = "¥56800";
+                borrowCodeInfo.nickName = "陈小毛";
+                borrowCodeInfo.deadline = "2019.10.10-2019.12.22";
+                borrowCodeInfo.interest = "¥100";
+                borrowCodeInfo.overdueInterestDesc = "未还金额的万分之6";
+                Intent intent = new Intent(this, HomeBorrowApplyActivity.class);
+                intent.putExtra(HomeBorrowApplyActivity.EXTRA_KEY_CLIPBOARD_INFO, clipBoardBean);
+                intent.putExtra(HomeBorrowApplyActivity.EXTRA_KEY_BORROW_CODE_INFO, (Parcelable) borrowCodeInfo);
+                startActivity(intent);
+                break;
+            }
             default:
         }
     }

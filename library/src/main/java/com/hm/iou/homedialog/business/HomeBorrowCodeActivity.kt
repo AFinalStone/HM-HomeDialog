@@ -79,11 +79,11 @@ class HomeBorrowCodeActivity : BaseActivity<MvpActivityPresenter<BaseContract.Ba
             return
         }
 
-        //todo 接口需要返回头像
-        ImageLoader.getInstance(this).displayImage("", iv_dialog_avatar, R.mipmap.uikit_icon_header_unknow, R.mipmap.uikit_icon_header_unknow)
-        tv_dialog_title.text = "我有“闲置”资金"           //TODO 是否接口修改
+        ImageLoader.getInstance(this).displayImage(mBorrowCodeInfo?.avatarUrl, iv_dialog_avatar,
+                R.mipmap.uikit_icon_header_unknow, R.mipmap.uikit_icon_header_unknow)
+        tv_dialog_title.text = mBorrowCodeInfo?.title
         tv_dialog_title.setTextColor(0xFF1A6B20.toInt())
-        tv_dialog_nickname.text = "金主昵称：貂蝉"        //TODO 接口昵称需要返回
+        tv_dialog_nickname.text = "金主昵称：${mBorrowCodeInfo?.nickName}"
         tv_dialog_amount.text = "闲置资金：${mBorrowCodeInfo?.amount}"
         tv_dialog_days.text = "借款周期：${mBorrowCodeInfo?.deadline}"
         tv_dialog_interest.text = "利息合计：${mBorrowCodeInfo?.interest}"
