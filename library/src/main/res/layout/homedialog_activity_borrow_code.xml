@@ -44,6 +44,8 @@
             android:layout_below="@id/tv_dialog_title"
             android:layout_marginTop="18dp"
             android:textColor="@color/uikit_text_sub_content"
+            android:singleLine="true"
+            android:maxLines="1"
             tools:text="金主昵称：貂蝉" />
 
         <TextView
