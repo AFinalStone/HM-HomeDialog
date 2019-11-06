@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@color/white"
-        android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="40dp"
         android:paddingTop="20dp"
