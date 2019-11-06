@@ -35,7 +35,10 @@
             android:layout_marginTop="16dp"
             android:text="我有“闲置”资金"
             android:textColor="#FF1A6B20"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:singleLine="true"
+            android:maxLines="1"
+            />
 
         <TextView
             android:id="@+id/tv_dialog_nickname"
@@ -53,6 +56,8 @@
             android:layout_below="@id/tv_dialog_nickname"
             android:layout_marginTop="8dp"
             android:textColor="@color/uikit_text_sub_content"
+            android:singleLine="true"
+            android:maxLines="1"
             tools:text="闲置资金：￥10000" />
 
         <TextView
@@ -61,6 +66,8 @@
             android:layout_below="@id/tv_dialog_amount"
             android:layout_marginTop="8dp"
             android:textColor="@color/uikit_text_sub_content"
+            android:singleLine="true"
+            android:maxLines="1"
             tools:text="借款周期：30天" />
 
         <TextView
@@ -69,6 +76,8 @@
             android:layout_below="@id/tv_dialog_days"
             android:layout_marginTop="8dp"
             android:textColor="@color/uikit_text_sub_content"
+            android:singleLine="true"
+            android:maxLines="1"
             tools:text="利息合计：￥100 " />
 
         <TextView
@@ -77,6 +86,8 @@
             android:layout_below="@id/tv_dialog_interest"
             android:layout_marginTop="8dp"
             android:textColor="@color/uikit_text_sub_content"
+            android:singleLine="true"
+            android:maxLines="1"
             tools:text="逾期利息：未还金额的万6" />
 
         <Button
